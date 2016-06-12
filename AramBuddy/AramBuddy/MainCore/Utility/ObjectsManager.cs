@@ -2,7 +2,7 @@
 using EloBuddy;
 using EloBuddy.SDK;
 
-namespace AutoAram.MainCore
+namespace AramBuddy.MainCore
 {
     internal class ObjectsManager
     {

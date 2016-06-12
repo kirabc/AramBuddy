@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace AutoAram.AutoShop.Sequences
+namespace AramBuddy.AutoShop.Sequences
 {
     /// <summary>
     ///     A class containing all the methods needed for parsing JSON
@@ -38,7 +38,7 @@ namespace AutoAram.AutoShop.Sequences
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred in AutoShop on JSON parse:" + Environment.NewLine);
+                                  "AramBuddy Error] Exception occurred in AutoShop on JSON parse:" + Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
 
@@ -46,7 +46,7 @@ namespace AutoAram.AutoShop.Sequences
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop JSON parse. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop JSON parse. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
                 build = null;
                 return false;

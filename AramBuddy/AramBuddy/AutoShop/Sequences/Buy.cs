@@ -4,7 +4,7 @@ using System.Linq;
 using EloBuddy;
 using EloBuddy.SDK;
 
-namespace AutoAram.AutoShop.Sequences
+namespace AramBuddy.AutoShop.Sequences
 {
     internal class Buy
     {
@@ -23,8 +23,7 @@ namespace AutoAram.AutoShop.Sequences
                 {
                     // Notify the user that the build is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                      "AutoAram Info] Build is finished - Cannot buy any more items!");
+                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Build is finished - Cannot buy any more items!");
                     Console.ResetColor();
 
                     // Return false because we could not buy items
@@ -33,7 +32,7 @@ namespace AutoAram.AutoShop.Sequences
 
                 // Get the item
                 var itemname = build.BuildData.ElementAt(GetIndex());
-                var item = Item.ItemData.FirstOrDefault(i => i.Value.Name == itemname);
+                    var item = Item.ItemData.FirstOrDefault(i => i.Value.Name == itemname);
 
                 // Check if we can buy the item
                 if (item.Value != null && item.Key != null && item.Key != ItemId.Unknown &&
@@ -48,7 +47,7 @@ namespace AutoAram.AutoShop.Sequences
 
                     // Notify the user that the item has been bought and of the value of the item
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AutoAram Info] Item bought: " +
+                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Item bought: " +
                                       item.Value.Name + " - Item Value: " + item.Value.Gold.Total);
                     Console.ResetColor();
 
@@ -67,7 +66,7 @@ namespace AutoAram.AutoShop.Sequences
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred in AutoShop on buying the next item:" +
+                                  "AramBuddy Error] Exception occurred in AutoShop on buying the next item:" +
                                   Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -76,7 +75,7 @@ namespace AutoAram.AutoShop.Sequences
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
                 return false;
             }
@@ -110,7 +109,7 @@ namespace AutoAram.AutoShop.Sequences
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred in AutoShop on creating build index file:" +
+                                  "AramBuddy Error] Exception occurred in AutoShop on creating build index file:" +
                                   Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -119,7 +118,7 @@ namespace AutoAram.AutoShop.Sequences
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
         }
@@ -155,7 +154,7 @@ namespace AutoAram.AutoShop.Sequences
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred in AutoShop on increment build index:" +
+                                  "AramBuddy Error] Exception occurred in AutoShop on increment build index:" +
                                   Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -164,7 +163,7 @@ namespace AutoAram.AutoShop.Sequences
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
         }
@@ -188,7 +187,7 @@ namespace AutoAram.AutoShop.Sequences
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred in AutoShop on get build index:" +
+                                  "AramBuddy Error] Exception occurred in AutoShop on get build index:" +
                                   Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -197,7 +196,7 @@ namespace AutoAram.AutoShop.Sequences
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
                 return 0;
             }
@@ -232,7 +231,7 @@ namespace AutoAram.AutoShop.Sequences
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred in AutoShop reset build index:" +
+                                  "AramBuddy Error] Exception occurred in AutoShop reset build index:" +
                                   Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -241,7 +240,7 @@ namespace AutoAram.AutoShop.Sequences
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
         }

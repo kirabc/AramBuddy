@@ -4,7 +4,7 @@ using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
 
-namespace AutoAram
+namespace AramBuddy
 {
     internal class Program
     {
@@ -19,8 +19,8 @@ namespace AutoAram
         {
             if (Game.MapId != GameMapId.HowlingAbyss)
             {
-                Console.WriteLine(Game.MapId + " Is Not Supported By AutoAram !");
-                Chat.Print(Game.MapId + " Is Not Supported By AutoAram !");
+                Console.WriteLine(Game.MapId + " Is Not Supported By AramBuddy !");
+                Chat.Print(Game.MapId + " Is Not Supported By AramBuddy !");
                 return;
             }
 

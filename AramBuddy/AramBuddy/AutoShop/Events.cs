@@ -1,7 +1,7 @@
 ﻿using System;
 using EloBuddy;
 
-namespace AutoAram.AutoShop
+namespace AramBuddy.AutoShop
 {
     /// <summary>
     ///     The class where events are invoked, defined and tested
@@ -55,7 +55,7 @@ namespace AutoAram.AutoShop
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Error] Exception occurred on initialization of AutoShop event OnPlayerDeath:" +
+                    "AramBuddy Error] Exception occurred on initialization of AutoShop event OnPlayerDeath:" +
                     Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -64,7 +64,7 @@ namespace AutoAram.AutoShop
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString(Environment.NewLine + "[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
 
@@ -76,8 +76,8 @@ namespace AutoAram.AutoShop
 
             try
             {
-                // When the game starts, invoke the event
-                AutoAram.Events.OnGameStart += delegate { OnBuyAllow(EventArgs.Empty); };
+                // When the game loads the first time, invoke the event
+                Game.OnLoad += delegate { OnBuyAllow(EventArgs.Empty); };
 
                 // When the player dies, invoke the event
                 OnPlayerDeath += delegate { OnBuyAllow(EventArgs.Empty); };
@@ -87,7 +87,7 @@ namespace AutoAram.AutoShop
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred on initialization of AutoShop event OnBuyAllow." +
+                                  "AramBuddy Error] Exception occurred on initialization of AutoShop event OnBuyAllow." +
                                   Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -96,7 +96,7 @@ namespace AutoAram.AutoShop
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString(Environment.NewLine + "[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop events initialization. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop events initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
 
@@ -128,7 +128,7 @@ namespace AutoAram.AutoShop
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(
                     DateTime.Now.ToString("[hh:mm:ss - ") +
-                    "AutoAram Error] Exception occurred on initialization of AutoShop event OnBuildReset:" +
+                    "AramBuddy Error] Exception occurred on initialization of AutoShop event OnBuildReset:" +
                     Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -137,7 +137,7 @@ namespace AutoAram.AutoShop
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
                     DateTime.Now.ToString(Environment.NewLine + "[hh:mm:ss - ") +
-                    "AutoAram Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
+                    "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
 
@@ -146,7 +146,7 @@ namespace AutoAram.AutoShop
             // Notify the user that events are functioning correctly
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                              "AutoAram Info] AutoShop events have been succesfully set up!");
+                              "AramBuddy Info] Events have been succesfully set up!");
             Console.ResetColor();
         }
 

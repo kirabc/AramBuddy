@@ -1,4 +1,4 @@
-﻿namespace AutoAram.MainCore.Path
+﻿namespace AramBuddy.MainCore.Path
 {
     internal class Pathing
     {
