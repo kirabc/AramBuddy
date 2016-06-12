@@ -3,7 +3,7 @@ using System.Windows;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 
-namespace AutoAramBuildCreator.Other_Views
+namespace BuildBuddy.Other_Views
 {
     /// <summary>
     ///     Interaction logic for SettingsWindow.xaml

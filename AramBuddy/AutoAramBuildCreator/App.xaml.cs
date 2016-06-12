@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace AutoAramBuildCreator
+namespace BuildBuddy
 {
     /// <summary>
     ///     Interaction logic for App.xaml

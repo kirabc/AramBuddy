@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using AutoAramBuildCreator.Other_Views;
+using BuildBuddy.Other_Views;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Newtonsoft.Json.Linq;
 
-namespace AutoAramBuildCreator
+namespace BuildBuddy
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -351,7 +351,7 @@ namespace AutoAramBuildCreator
             try
             {
                 var location = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                               "\\EloBuddy\\AutoAram\\Builds";
+                               "\\EloBuddy\\AramBuddy\\Builds";
 
                 var json = new JObject(new JProperty("data", items));
 

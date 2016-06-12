@@ -1,4 +1,4 @@
-﻿namespace AutoAramBuildCreator
+﻿namespace BuildBuddy.Data
 {
     internal class Data
     {

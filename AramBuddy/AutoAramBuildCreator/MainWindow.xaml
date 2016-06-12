@@ -1,13 +1,13 @@
-﻿<controls:MetroWindow x:Class="AutoAramBuildCreator.MainWindow"
+﻿<controls:MetroWindow x:Class="BuildBuddy.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:AutoAramBuildCreator"
+                      xmlns:local="clr-namespace:BuildBuddy"
                       xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:oc="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
                       mc:Ignorable="d"
-                      Title="AutoAram Build Creator" Height="519.325" Width="869" ResizeMode="NoResize"
+                      Title="Build Buddy" Height="519.325" Width="869" ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
 
     <controls:MetroWindow.RightWindowCommands>

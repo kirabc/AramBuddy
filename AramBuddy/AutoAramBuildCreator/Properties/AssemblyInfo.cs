@@ -6,11 +6,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("AutoAramBuildCreator")]
-[assembly: AssemblyDescription("A build creator for AutoAram")]
+[assembly: AssemblyTitle("BuildBuddy")]
+[assembly: AssemblyDescription("A build creator for AramBuddy")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Buddy Inc")]
-[assembly: AssemblyProduct("AutoAramBuildCreator")]
+[assembly: AssemblyProduct("BuildBuddy")]
 [assembly: AssemblyCopyright("Copyright © Buddy Inc 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
