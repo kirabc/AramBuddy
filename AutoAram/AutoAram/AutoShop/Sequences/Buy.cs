@@ -23,7 +23,8 @@ namespace AutoAram.AutoShop.Sequences
                 {
                     // Notify the user that the build is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AutoAram Info] Build is finished - Cannot buy any more items!");
+                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                                      "AutoAram Info] Build is finished - Cannot buy any more items!");
                     Console.ResetColor();
 
                     // Return false because we could not buy items
@@ -32,7 +33,7 @@ namespace AutoAram.AutoShop.Sequences
 
                 // Get the item
                 var itemname = build.BuildData.ElementAt(GetIndex());
-                    var item = Item.ItemData.FirstOrDefault(i => i.Value.Name == itemname);
+                var item = Item.ItemData.FirstOrDefault(i => i.Value.Name == itemname);
 
                 // Check if we can buy the item
                 if (item.Value != null && item.Key != null && item.Key != ItemId.Unknown &&

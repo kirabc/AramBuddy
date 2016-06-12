@@ -43,11 +43,14 @@ namespace AutoAram.AutoShop
         {
             try
             {
+                // When the game starts
+                AutoAram.Events.OnGameStart += Events_OnGameStart;
+
                 // Create the build path directory
                 Directory.CreateDirectory(BuildPath);
 
                 // Check if the index file exists
-                if (!File.Exists(TempPath + "buildindex.dat"))
+                if (!File.Exists(TempPath + "\\buildindex.dat"))
                 {
                     // If not, create the index file
                     Buy.CreateIndexFile();
@@ -134,16 +137,14 @@ namespace AutoAram.AutoShop
             Events.OnBuildReset += Events_OnBuildReset;
 
             // When the game ends
-            Game.OnEnd += Game_OnEnd;
-
-            // When the game starts
-            Game.OnLoad += Game_OnLoad;
+            AutoAram.Events.OnGameEnd += Events_OnGameEnd;
         }
+
         /// <summary>
         /// Fired when the game starts
         /// </summary>
         /// <param name="args">Arguments providing with information about the GameOnLoad</param>
-        private static void Game_OnLoad(EventArgs args)
+        private static void Events_OnGameStart(EventArgs args)
         {
             // Delete the index file if it exists
             if (File.Exists(TempPath + "\\buildindex.dat"))
@@ -154,7 +155,7 @@ namespace AutoAram.AutoShop
         ///     Fired when the game ends
         /// </summary>
         /// <param name="args">Arguments providing with information about the GameEnd</param>
-        private static void Game_OnEnd(GameEndEventArgs args)
+        private static void Events_OnGameEnd(EventArgs args)
         {
             // Delete the index file if it exists
             if (File.Exists(TempPath + "\\buildindex.dat"))

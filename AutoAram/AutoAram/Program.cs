@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoAram.AutoShop;
+using EloBuddy;
+using EloBuddy.SDK;
+using EloBuddy.SDK.Events;
 
 namespace AutoAram
 {
-    using EloBuddy;
-    using EloBuddy.SDK;
-    using EloBuddy.SDK.Events;
-
     internal class Program
     {
         public static bool Loaded;
@@ -19,6 +14,7 @@ namespace AutoAram
         {
             Loading.OnLoadingComplete += Loading_OnLoadingComplete;
         }
+
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
             if (Game.MapId != GameMapId.HowlingAbyss)
@@ -27,16 +23,15 @@ namespace AutoAram
                 Chat.Print(Game.MapId + " Is Not Supported By AutoAram !");
                 return;
             }
-            
+
             // Initialize the AutoShop
-            AutoShop.Setup.Init();
+            Setup.Init();
 
             Game.OnTick += Game_OnTick;
-            Game.OnEnd += Game_OnEnd;
-
+            Events.OnGameEnd += Events_OnGameEnd;
         }
 
-        private static void Game_OnEnd(GameEndEventArgs args)
+        private static void Events_OnGameEnd(EventArgs args)
         {
             Core.DelayAction(() => Game.QuitGame(), 250);
         }

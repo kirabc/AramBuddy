@@ -1,10 +1,9 @@
 ﻿namespace AutoAram.MainCore.Path
 {
-    class Pathing
+    internal class Pathing
     {
         public static void OnLoad()
         {
-            
         }
     }
 }

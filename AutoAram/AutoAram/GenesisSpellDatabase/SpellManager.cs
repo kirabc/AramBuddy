@@ -1,13 +1,11 @@
-﻿namespace GenesisSpellLibrary
+﻿using System.Collections.Generic;
+using System.Linq;
+using EloBuddy;
+using EloBuddy.SDK;
+using GenesisSpellLibrary.Spells;
+
+namespace GenesisSpellLibrary
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Spells;
-
-    using EloBuddy;
-    using EloBuddy.SDK;
-
     public static class SpellManager
     {
         static SpellManager()
@@ -44,7 +42,7 @@
 
         public static void PrepareSpells(AIHeroClient hero)
         {
-            SpellBase spells = SpellLibrary.GetSpells(hero.Hero);
+            var spells = SpellLibrary.GetSpells(hero.Hero);
             //This only needs to be called once per champion, anymore is a memory leak.
             if (spells != null)
             {

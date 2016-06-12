@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using EloBuddy;
+using EloBuddy.SDK;
 
 namespace AutoAram.MainCore
 {
-    using EloBuddy;
-    using EloBuddy.SDK;
-
-    class ObjectsManager
+    internal class ObjectsManager
     {
         public static AIHeroClient BestAllyToFollow
         {
             get
             {
                 return
-                    EntityManager.Heroes.Allies.OrderByDescending(a => a.CountAlliesInRange(800) - a.CountEnemiesInRange(800))
+                    EntityManager.Heroes.Allies.OrderByDescending(
+                        a => a.CountAlliesInRange(800) - a.CountEnemiesInRange(800))
                         .ThenBy(a => a.Distance(Player.Instance))
-                        .FirstOrDefault(a => a.IsValidTarget() && !a.IsUnderEnemyturret() && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe);
+                        .FirstOrDefault(
+                            a =>
+                                a.IsValidTarget() && !a.IsUnderEnemyturret() && !a.IsInShopRange() && !a.IsDead &&
+                                !a.IsZombie && !a.IsMe);
             }
         }
 
@@ -28,7 +27,8 @@ namespace AutoAram.MainCore
             {
                 return
                     EntityManager.MinionsAndMonsters.AlliedMinions.OrderBy(m => m.Distance(Player.Instance))
-                        .FirstOrDefault(m => m.IsValidTarget() && m.CountAlliesInRange(750) >= m.CountEnemiesInRange(750));
+                        .FirstOrDefault(
+                            m => m.IsValidTarget() && m.CountAlliesInRange(750) >= m.CountEnemiesInRange(750));
             }
         }
 
@@ -36,23 +36,29 @@ namespace AutoAram.MainCore
         {
             get
             {
-                return Player.Instance.Team == GameObjectTeam.Order ? EntityManager.Turrets.Allies.FirstOrDefault(t => t.IsValidTarget() && !t.IsDead && t.BaseSkinName.ToLower().Equals("ha_ap_orderturret")) : EntityManager.Turrets.Allies.FirstOrDefault(t => t.IsValidTarget() && !t.IsDead && t.BaseSkinName.ToLower().Equals("ha_ap_chaosturret"));
+                return Player.Instance.Team == GameObjectTeam.Order
+                    ? EntityManager.Turrets.Allies.FirstOrDefault(
+                        t => t.IsValidTarget() && !t.IsDead && t.BaseSkinName.ToLower().Equals("ha_ap_orderturret"))
+                    : EntityManager.Turrets.Allies.FirstOrDefault(
+                        t => t.IsValidTarget() && !t.IsDead && t.BaseSkinName.ToLower().Equals("ha_ap_chaosturret"));
             }
         }
 
         public static Obj_AI_Turret ClosesetAllyTurret
         {
-            get
-            {
-                return EntityManager.Turrets.Allies.FirstOrDefault(t => t.IsValidTarget() && !t.IsDead);
-            }
+            get { return EntityManager.Turrets.Allies.FirstOrDefault(t => t.IsValidTarget() && !t.IsDead); }
         }
 
         public static Obj_AI_Turret SafeAllyTurret
         {
             get
             {
-                return EntityManager.Turrets.Allies.FirstOrDefault(t => t.IsValidTarget() && !t.IsDead && t.CountAlliesInRange(t.GetAutoAttackRange()) >= t.CountEnemiesInRange(t.GetAutoAttackRange()));
+                return
+                    EntityManager.Turrets.Allies.FirstOrDefault(
+                        t =>
+                            t.IsValidTarget() && !t.IsDead &&
+                            t.CountAlliesInRange(t.GetAutoAttackRange()) >=
+                            t.CountEnemiesInRange(t.GetAutoAttackRange()));
             }
         }
 
@@ -60,7 +66,13 @@ namespace AutoAram.MainCore
         {
             get
             {
-                return ObjectManager.Get<Obj_AI_Minion>().OrderBy(hr => hr.Distance(Player.Instance)).FirstOrDefault(hr => hr.BaseSkinName.ToLower().Equals("ha_ap_healthrelic") && hr.IsValid && hr.CountEnemiesInRange(900) < 2 && !hr.IsUnderEnemyturret());
+                return
+                    ObjectManager.Get<Obj_AI_Minion>()
+                        .OrderBy(hr => hr.Distance(Player.Instance))
+                        .FirstOrDefault(
+                            hr =>
+                                hr.BaseSkinName.ToLower().Equals("ha_ap_healthrelic") && hr.IsValid &&
+                                hr.CountEnemiesInRange(900) < 2 && !hr.IsUnderEnemyturret());
             }
         }
     }

@@ -76,8 +76,8 @@ namespace AutoAram.AutoShop
 
             try
             {
-                // When the game loads the first time, invoke the event
-                Game.OnLoad += delegate { OnBuyAllow(EventArgs.Empty); };
+                // When the game starts, invoke the event
+                AutoAram.Events.OnGameStart += delegate { OnBuyAllow(EventArgs.Empty); };
 
                 // When the player dies, invoke the event
                 OnPlayerDeath += delegate { OnBuyAllow(EventArgs.Empty); };
@@ -146,7 +146,7 @@ namespace AutoAram.AutoShop
             // Notify the user that events are functioning correctly
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                              "AutoAram Info] Events have been succesfully set up!");
+                              "AutoAram Info] AutoShop events have been succesfully set up!");
             Console.ResetColor();
         }
 
