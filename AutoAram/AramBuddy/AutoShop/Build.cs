@@ -1,4 +1,4 @@
-﻿namespace AutoAram.AutoShop
+﻿namespace AramBuddy.AutoShop
 {
     /// <summary>
     ///     The class containing the BuildData used by the interpreter to buy items in order

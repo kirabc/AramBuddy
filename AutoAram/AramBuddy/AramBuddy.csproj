@@ -7,8 +7,8 @@
     <ProjectGuid>{809239AF-8476-45CC-8D56-815319CC7372}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AutoAram</RootNamespace>
-    <AssemblyName>AutoAram</AssemblyName>
+    <RootNamespace>AramBuddy</RootNamespace>
+    <AssemblyName>AramBuddy</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,19 +34,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EloBuddy">
-      <HintPath>E:\Program Files (x86)\EloBuddy\System\EloBuddy.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\New folder\EloBuddy\System\EloBuddy.dll</HintPath>
     </Reference>
     <Reference Include="EloBuddy.SDK">
-      <HintPath>E:\Program Files (x86)\EloBuddy\System\EloBuddy.SDK.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\New folder\EloBuddy\System\EloBuddy.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>E:\Program Files (x86)\EloBuddy\System\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\New folder\EloBuddy\System\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>E:\Program Files (x86)\EloBuddy\System\SharpDX.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\New folder\EloBuddy\System\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>E:\Program Files (x86)\EloBuddy\System\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\New folder\EloBuddy\System\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -67,8 +67,8 @@
     <Compile Include="GenesisSpellDatabase\SpellManager.cs" />
     <Compile Include="GenesisSpellDatabase\Spells\SpellBase.cs" />
     <Compile Include="GenesisSpellDatabase\Spells\Spells.cs" />
-    <Compile Include="MainCore\ObjectsManager.cs" />
-    <Compile Include="MainCore\Path\Pathing.cs" />
+    <Compile Include="MainCore\Utility\ObjectsManager.cs" />
+    <Compile Include="MainCore\Positioning\Pathing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

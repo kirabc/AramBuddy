@@ -18,7 +18,7 @@
 
             else
             {
-                Chat.Print("<font color='#FF0000'><b>AutoAram ERROR:</b></font> " + heroChampion + " is not supported.");
+                Chat.Print("<font color='#FF0000'><b>AramBuddy ERROR:</b></font> " + heroChampion + " is not supported.");
                 return null;
             }
         }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AutoAram.AutoShop.Sequences;
+using AramBuddy.AutoShop.Sequences;
 using EloBuddy;
 
-namespace AutoAram.AutoShop
+namespace AramBuddy.AutoShop
 {
     /// <summary>
     ///     The class where AutoShop is set-up
@@ -16,13 +16,13 @@ namespace AutoAram.AutoShop
         ///     Path to the build folder, containing all the champion builds
         /// </summary>
         public static readonly string BuildPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                  "\\EloBuddy\\AutoAram\\Builds";
+                                                  "\\EloBuddy\\AramBuddy\\Builds";
 
         /// <summary>
         ///     Path to the temporary folder which contains the in-game cache
         /// </summary>
         public static readonly string TempPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                 "\\EloBuddy\\AutoAram\\temp";
+                                                 "\\EloBuddy\\AramBuddy\\temp";
 
         /// <summary>
         ///     A Dictionary that contains all the builds detected
@@ -69,8 +69,8 @@ namespace AutoAram.AutoShop
                     // If not, warn the user
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                      "AutoAram Warning] There are no builds for your champion.");
-                    Console.WriteLine("AutoAram Warning] No build is currently used!");
+                                      "AramBuddy Warning] There are no builds for your champion.");
+                    Console.WriteLine("AramBuddy Warning] No build is currently used!");
                     Console.ResetColor();
 
                     // and terminate the AutoShop
@@ -85,7 +85,7 @@ namespace AutoAram.AutoShop
                     // If the parse is successful, notify the user that the initialization process is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                      "AutoAram Info] AutoShop has been fully and succesfully initialized!");
+                                      "AramBuddy Info] AutoShop has been fully and succesfully initialized!");
                     Console.ResetColor();
 
                     // and set up event listeners
@@ -96,12 +96,12 @@ namespace AutoAram.AutoShop
                     // An error occured during parsing. Catch the error and print it in the console
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                      "AutoAram Error] The selected AutoShop JSON could not be parsed.");
+                                      "AramBuddy Error] The selected AutoShop JSON could not be parsed.");
                     Console.ResetColor();
 
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
-                                      "AutoAram Warning] No build is currently used!");
+                                      "AramBuddy Warning] No build is currently used!");
                     Console.ResetColor();
                 }
             }
@@ -110,14 +110,14 @@ namespace AutoAram.AutoShop
                 // An exception occured somewhere else. Notify the user of the error, and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(DateTime.Now.ToString(Environment.NewLine + "[hh:mm:ss - ") +
-                                  "AutoAram Error] Exception occurred on initialization of AutoShop:");
+                                  "AramBuddy Error] Exception occurred on initialization of AutoShop:");
                 Console.ResetColor();
                 Console.Write(ex);
 
                 // Warn the user about the exception
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(DateTime.Now.ToString("hh:mm:ss - ") +
-                                  "AutoAram Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
+                                  "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
         }
@@ -169,7 +169,7 @@ namespace AutoAram.AutoShop
         {
             // Notify the user that the build has been reset
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AutoAram Info] Build has been reset!");
+            Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Build has been reset!");
             Console.ResetColor();
 
             // Reset the build index, restarting the build process from the start
@@ -184,7 +184,7 @@ namespace AutoAram.AutoShop
         {
             // Notify the user that we are going to try to buy items now
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AutoAram Info] Can buy items");
+            Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Can buy items");
             Console.ResetColor();
 
             // Attempt to buy as many consecutive items on the build as we can
