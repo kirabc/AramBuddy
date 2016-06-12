@@ -18,20 +18,7 @@ namespace AutoAram
         private static void Main(string[] args)
         {
             Loading.OnLoadingComplete += Loading_OnLoadingComplete;
-            
-
-            // test
-            Game.OnNotify += Game_OnNotify;
         }
-
-        private static void Game_OnNotify(GameNotifyEventArgs args)
-        {
-            if (args.EventId == GameEventId.OnGameStart)
-                Console.WriteLine("start");
-            if (args.EventId == GameEventId.OnEndGame)
-                Console.WriteLine("end");
-        }
-
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
             if (Game.MapId != GameMapId.HowlingAbyss)
