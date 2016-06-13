@@ -1,5 +1,8 @@
-﻿using System;
-using EloBuddy;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace AramBuddy.AutoShop
 {

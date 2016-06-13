@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using EloBuddy;
-using EloBuddy.SDK;
-using EloBuddy.SDK.Events;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace AramBuddy
 {
@@ -30,23 +30,27 @@ namespace AramBuddy
             #region OnGameEnd
 
             // Variable used to make sure that the event invoke isn't spammed and is only called once
-            var gameEndNotified = false;
+            bool gameEndNotified = false;
 
             // Every time the game ticks (1ms)
             Game.OnTick += delegate
             {
                 // Make sure we're not repeating the invoke
                 if (gameEndNotified)
+                {
                     return;
+                }
 
                 // Get the enemy nexus
                 var nexus =
                     ObjectManager.Get<Obj_Building>()
-                        .Where(b => b.Name.ToLower().Contains("nexus"));
+                                 .Where(b => b.Name.ToLower().Contains("nexus"));
 
                 // Check and return if the nexus is null
                 if (nexus == null)
+                {
                     return;
+                }
 
                 // If the nexus is dead or its health is equal to 0
                 if (nexus.Any(n => n.IsDead) || nexus.Any(n => n.Health == 0.0f))
@@ -87,7 +91,7 @@ namespace AramBuddy
         public static event OnGameEndHandler OnGameEnd;
 
         /// <summary>
-        /// Fires when the game has started
+        ///     Fires when the game has started
         /// </summary>
         public static event OnGameStartHandler OnGameStart;
     }

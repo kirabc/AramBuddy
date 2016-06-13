@@ -1,27 +1,28 @@
-﻿namespace AramBuddy.MainCore.Positioning
+﻿#region
+
+using AramBuddy.MainCore.Utility;
+
+#endregion
+
+namespace AramBuddy.MainCore.Positioning
 {
-    using System.Linq;
-
-    using EloBuddy;
-    using EloBuddy.SDK;
-
-    using SharpDX;
-
-    using Utility;
-
     internal class Pathing
     {
         internal static Vector3 Position;
 
+        public static float lastmove;
+
         public static void BestPosition()
         {
-            if ((Player.Instance.HealthPercent < 70 || Player.Instance.ManaPercent < 10) && ObjectsManager.HealthRelic != null)
+            if (((Player.Instance.HealthPercent < 70) || (Player.Instance.ManaPercent < 10)) &&
+                (ObjectsManager.HealthRelic != null))
             {
                 Program.Moveto = "HealthRelic";
                 Position = ObjectsManager.HealthRelic.Position.Random();
                 return;
             }
-            if (Player.Instance.ServerPosition.UnderEnemyTurret() && !Misc.SafeToDive && ObjectsManager.AllyNexues != null)
+            if (Player.Instance.ServerPosition.UnderEnemyTurret() && !Misc.SafeToDive &&
+                (ObjectsManager.AllyNexues != null))
             {
                 Program.Moveto = "AllyNexues1";
                 Position = ObjectsManager.AllyNexues.Position.Random();
@@ -74,17 +75,16 @@
                 }
             }
             */
-            if (Position != null && NavMesh.GetCollisionFlags(Position) != CollisionFlags.Wall)
+            if ((Position != null) && (NavMesh.GetCollisionFlags(Position) != CollisionFlags.Wall))
             {
                 MoveTo(Position);
             }
         }
 
-        public static float lastmove;
-
         public static void MoveTo(Vector3 pos)
         {
-            if (!Player.Instance.Path.LastOrDefault().IsInRange(pos, 100) && !Player.Instance.IsInRange(pos, 100) && !Orbwalker.IsAutoAttacking && Core.GameTickCount - lastmove > 500)
+            if (!Player.Instance.Path.LastOrDefault().IsInRange(pos, 100) && !Player.Instance.IsInRange(pos, 100) &&
+                !Orbwalker.IsAutoAttacking && (Core.GameTickCount - lastmove > 500))
             {
                 if (pos.UnderEnemyTurret() && !Misc.SafeToDive)
                 {
@@ -104,7 +104,8 @@
 
         public static void MoveTo(Obj_AI_Base target)
         {
-            if (!Player.Instance.Path.LastOrDefault().IsInRange(target, 150) && !Player.Instance.IsInRange(target, 150) && !Orbwalker.IsAutoAttacking && Core.GameTickCount - lastmove > 500)
+            if (!Player.Instance.Path.LastOrDefault().IsInRange(target, 150) && !Player.Instance.IsInRange(target, 150) &&
+                !Orbwalker.IsAutoAttacking && (Core.GameTickCount - lastmove > 500))
             {
                 if (target.IsUnderEnemyturret() && !Misc.SafeToDive)
                 {

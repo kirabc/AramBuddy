@@ -1,8 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.IO;
 using System.Linq;
-using EloBuddy;
-using EloBuddy.SDK;
+
+#endregion
 
 namespace AramBuddy.AutoShop.Sequences
 {
@@ -23,7 +25,8 @@ namespace AramBuddy.AutoShop.Sequences
                 {
                     // Notify the user that the build is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Build is finished - Cannot buy any more items!");
+                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                                      "AramBuddy Info] Build is finished - Cannot buy any more items!");
                     Console.ResetColor();
 
                     // Return false because we could not buy items
@@ -31,13 +34,13 @@ namespace AramBuddy.AutoShop.Sequences
                 }
 
                 // Get the item
-                var itemname = build.BuildData.ElementAt(GetIndex());
-                    var item = Item.ItemData.FirstOrDefault(i => i.Value.Name == itemname);
+                string itemname = build.BuildData.ElementAt(GetIndex());
+                var item = Item.ItemData.FirstOrDefault(i => i.Value.Name == itemname);
 
                 // Check if we can buy the item
-                if (item.Value != null && item.Key != null && item.Key != ItemId.Unknown &&
+                if ((item.Value != null) && (item.Key != null) && (item.Key != ItemId.Unknown) &&
                     item.Value.ValidForPlayer && item.Value.InStore && item.Value.Gold.Purchasable &&
-                    item.Value.AvailableForMap && Player.Instance.Gold >= item.Value.Gold.Total)
+                    item.Value.AvailableForMap && (Player.Instance.Gold >= item.Value.Gold.Total))
                 {
                     // Buy the actual item from the shop
                     Shop.BuyItem(item.Key);
@@ -95,10 +98,12 @@ namespace AramBuddy.AutoShop.Sequences
                 // If the index file already exists, stop running the method as the user probably wants to continue
                 // using their build sequence on its current index
                 if (File.Exists(Setup.TempPath + "\\buildindex.dat"))
+                {
                     return;
+                }
 
                 // Create the index file
-                using (var sw = File.AppendText(Setup.TempPath + "\\buildindex.dat"))
+                using (StreamWriter sw = File.AppendText(Setup.TempPath + "\\buildindex.dat"))
                 {
                     // Write the default value (0) to the index file
                     sw.Write(0);
@@ -134,16 +139,16 @@ namespace AramBuddy.AutoShop.Sequences
                 Directory.CreateDirectory(Setup.TempPath);
 
                 // The contents of the index file
-                var data = File.ReadAllText(Setup.TempPath + "\\buildindex.dat");
+                string data = File.ReadAllText(Setup.TempPath + "\\buildindex.dat");
 
                 // The incremented index of the index file
-                var index = int.Parse(data) + 1;
+                int index = int.Parse(data) + 1;
 
                 // Delete the index file
                 File.Delete(Setup.TempPath + "\\buildindex.dat");
 
                 // Re-write the index file
-                using (var sw = File.AppendText(Setup.TempPath + "\\buildindex.dat"))
+                using (StreamWriter sw = File.AppendText(Setup.TempPath + "\\buildindex.dat"))
                 {
                     // Write the new, incremented index on the index file
                     sw.Write(index);
@@ -177,7 +182,7 @@ namespace AramBuddy.AutoShop.Sequences
             try
             {
                 // Get the data from the index file
-                var data = File.ReadAllText(Setup.TempPath + "\\buildindex.dat");
+                string data = File.ReadAllText(Setup.TempPath + "\\buildindex.dat");
 
                 // return the parsed data to an integer
                 return int.Parse(data);
@@ -214,13 +219,15 @@ namespace AramBuddy.AutoShop.Sequences
 
                 // Return if the index file does not exist
                 if (!File.Exists(Setup.TempPath + "\\buildindex.dat"))
+                {
                     return;
+                }
 
                 // Delete the index file
                 File.Delete(Setup.TempPath + "\\buildindex.dat");
 
                 // Rewrite to the index file
-                using (var sw = File.AppendText(Setup.TempPath + "\\buildindex.dat"))
+                using (StreamWriter sw = File.AppendText(Setup.TempPath + "\\buildindex.dat"))
                 {
                     // Write the default index file value (0) to the index file
                     sw.Write(0);

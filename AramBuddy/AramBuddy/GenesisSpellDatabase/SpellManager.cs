@@ -1,13 +1,13 @@
-﻿namespace GenesisSpellLibrary
+﻿#region
+
+using System.Collections.Generic;
+using System.Linq;
+using GenesisSpellLibrary.Spells;
+
+#endregion
+
+namespace GenesisSpellLibrary
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Spells;
-
-    using EloBuddy;
-    using EloBuddy.SDK;
-
     public static class SpellManager
     {
         static SpellManager()

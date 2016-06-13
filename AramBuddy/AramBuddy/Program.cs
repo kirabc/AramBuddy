@@ -1,21 +1,18 @@
-﻿namespace AramBuddy
+﻿#region
+
+using System;
+using System.Drawing;
+using System.Linq;
+using AramBuddy.AutoShop;
+using AramBuddy.MainCore;
+using AramBuddy.MainCore.Positioning;
+using AramBuddy.MainCore.Utility;
+using GenesisSpellLibrary;
+
+#endregion
+
+namespace AramBuddy
 {
-    using System;
-    using System.Linq;
-
-    using AramBuddy.MainCore;
-    using AramBuddy.MainCore.Positioning;
-    using AramBuddy.MainCore.Utility;
-
-    using EloBuddy;
-    using EloBuddy.SDK;
-    using EloBuddy.SDK.Events;
-    using EloBuddy.SDK.Rendering;
-
-    using GenesisSpellLibrary;
-
-    using SharpDX;
-
     internal class Program
     {
         public static bool Loaded;
@@ -58,10 +55,11 @@
             Drawing.DrawText(
                 Drawing.Width * 0.01f,
                 Drawing.Height * 0.025f,
-                System.Drawing.Color.White,
-                "AllyTeamTotal: " + (int)Misc.TeamTotal(Player.Instance) + " | EnemyTeamTotal: " + (int)Misc.TeamTotal(Player.Instance, true)
+                Color.White,
+                "AllyTeamTotal: " + (int) Misc.TeamTotal(Player.Instance) + " | EnemyTeamTotal: " +
+                (int) Misc.TeamTotal(Player.Instance, true)
                 + " | MoveTo: " + Moveto + " | ActiveMode: " + Orbwalker.ActiveModesFlags + " | Alone: " + Brain.Alone());
-            if (Pathing.Position != null && Pathing.Position != Vector3.Zero)
+            if ((Pathing.Position != null) && (Pathing.Position != Vector3.Zero))
             {
                 Circle.Draw(Color.White, 100, Pathing.Position);
             }
@@ -75,12 +73,12 @@
                 {
                     Loaded = true;
                     // Initialize the AutoShop
-                    AutoShop.Setup.Init();
+                    Setup.Init();
 
                     ObjectsManager.HealthRelics.Clear();
                     SpellManager.Initialize();
                     SpellLibrary.Initialize();
-                    
+
                     Orbwalker.OverrideOrbwalkPosition = OverrideOrbwalkPosition;
                     GameObject.OnCreate += ObjectsManager.GameObject_OnCreate;
                     GameObject.OnDelete += ObjectsManager.GameObject_OnDelete;
@@ -97,7 +95,9 @@
                 Brain.Decisions();
             }
 
-            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 150)));
+            var HR =
+                ObjectsManager.HealthRelics.FirstOrDefault(
+                    h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 150)));
             if (HR != null)
             {
                 ObjectsManager.HealthRelics.Remove(HR);

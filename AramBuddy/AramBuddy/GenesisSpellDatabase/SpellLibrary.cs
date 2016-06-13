@@ -1,11 +1,12 @@
-﻿namespace GenesisSpellLibrary
+﻿#region
+
+using System;
+using GenesisSpellLibrary.Spells;
+
+#endregion
+
+namespace GenesisSpellLibrary
 {
-    using System;
-
-    using Spells;
-
-    using EloBuddy;
-
     internal class SpellLibrary
     {
         public static SpellBase GetSpells(Champion heroChampion)
@@ -16,11 +17,8 @@
                 return Activator.CreateInstance(championType) as SpellBase;
             }
 
-            else
-            {
-                Chat.Print("<font color='#FF0000'><b>AramBuddy ERROR:</b></font> " + heroChampion + " is not supported.");
-                return null;
-            }
+            Chat.Print("<font color='#FF0000'><b>AramBuddy ERROR:</b></font> " + heroChampion + " is not supported.");
+            return null;
         }
 
         public static bool IsOnCooldown(AIHeroClient hero, SpellSlot slot)

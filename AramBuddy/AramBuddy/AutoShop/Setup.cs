@@ -1,9 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AramBuddy.AutoShop.Sequences;
-using EloBuddy;
+
+#endregion
 
 namespace AramBuddy.AutoShop
 {
@@ -57,10 +60,10 @@ namespace AramBuddy.AutoShop
                 }
 
                 // Loop through all the builds in the build path directory
-                foreach (var build in Directory.GetFiles(BuildPath))
+                foreach (string build in Directory.GetFiles(BuildPath))
                 {
                     // Get the name of the champion from the build
-                    var parsed = build.Replace(".json", "").Replace(BuildPath + "\\", "");
+                    string parsed = build.Replace(".json", "").Replace(BuildPath + "\\", "");
 
                     // Add the build to the Builds dictionary in a ChampionName : BuildData format
                     Builds.Add(parsed, File.ReadAllText(build));
@@ -83,7 +86,7 @@ namespace AramBuddy.AutoShop
                 // variable CurrentChampionBuild
                 if (
                     Builds.FirstOrDefault(b => b.Key == Player.Instance.ChampionName)
-                        .Value.TryParseData(out CurrentChampionBuild))
+                          .Value.TryParseData(out CurrentChampionBuild))
                 {
                     // If the parse is successful, notify the user that the initialization process is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -141,14 +144,16 @@ namespace AramBuddy.AutoShop
         }
 
         /// <summary>
-        /// Fired when the game starts
+        ///     Fired when the game starts
         /// </summary>
         /// <param name="args">Arguments providing with information about the GameOnLoad</param>
         private static void Events_OnGameStart(EventArgs args)
         {
             // Delete the index file if it exists
             if (File.Exists(TempPath + "\\buildindex.dat"))
+            {
                 File.Delete(TempPath + "\\buildindex.dat");
+            }
         }
 
         /// <summary>
@@ -159,7 +164,9 @@ namespace AramBuddy.AutoShop
         {
             // Delete the index file if it exists
             if (File.Exists(TempPath + "\\buildindex.dat"))
+            {
                 File.Delete(TempPath + "\\buildindex.dat");
+            }
         }
 
         /// <summary>
