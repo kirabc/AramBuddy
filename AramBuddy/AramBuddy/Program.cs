@@ -44,7 +44,13 @@
 
             Timer = Game.Time;
             Game.OnTick += Game_OnTick;
+            Events.OnGameEnd += Events_OnGameEnd;
             Drawing.OnEndScene += Drawing_OnEndScene;
+        }
+
+        private static void Events_OnGameEnd(EventArgs args)
+        {
+            Core.DelayAction(() => Game.QuitGame(), 250);
         }
 
         private static void Drawing_OnEndScene(EventArgs args)
@@ -59,11 +65,6 @@
             {
                 Circle.Draw(Color.White, 100, Pathing.Position);
             }
-        }
-
-        private static void Game_OnEnd(GameEndEventArgs args)
-        {
-            Core.DelayAction(() => Game.QuitGame(), 250);
         }
 
         private static void Game_OnTick(EventArgs args)
