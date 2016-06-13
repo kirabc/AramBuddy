@@ -82,7 +82,6 @@
                     SpellLibrary.Initialize();
                     
                     Orbwalker.OverrideOrbwalkPosition = OverrideOrbwalkPosition;
-                    Game.OnEnd += Game_OnEnd;
                     GameObject.OnCreate += ObjectsManager.GameObject_OnCreate;
                     GameObject.OnDelete += ObjectsManager.GameObject_OnDelete;
 

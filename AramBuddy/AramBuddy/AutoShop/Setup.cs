@@ -44,7 +44,7 @@ namespace AramBuddy.AutoShop
             try
             {
                 // When the game starts
-                AutoAram.Events.OnGameStart += Events_OnGameStart;
+                AramBuddy.Events.OnGameStart += Events_OnGameStart;
 
                 // Create the build path directory
                 Directory.CreateDirectory(BuildPath);
@@ -137,7 +137,7 @@ namespace AramBuddy.AutoShop
             Events.OnBuildReset += Events_OnBuildReset;
 
             // When the game ends
-            AutoAram.Events.OnGameEnd += Events_OnGameEnd;
+            AramBuddy.Events.OnGameEnd += Events_OnGameEnd;
         }
 
         /// <summary>
