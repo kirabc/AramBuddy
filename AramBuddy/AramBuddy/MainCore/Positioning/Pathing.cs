@@ -23,7 +23,7 @@
             }
             if (Player.Instance.ServerPosition.UnderEnemyTurret() && !Misc.SafeToDive && ObjectsManager.AllyNexues != null)
             {
-                Program.Moveto = "AllyNexues";
+                Program.Moveto = "AllyNexues1";
                 Position = ObjectsManager.AllyNexues.Position.Random();
                 return;
             }
@@ -43,10 +43,18 @@
                     }
                     else
                     {
-                        if (ObjectsManager.ClosesetAllyTurret != null)
+                        if (ObjectsManager.SafeAllyTurret != null)
                         {
-                            Program.Moveto = "ClosesetAllyTurret";
-                            Position = ObjectsManager.ClosesetAllyTurret.ServerPosition.Random();
+                            Program.Moveto = "SafeAllyTurret";
+                            Position = ObjectsManager.SafeAllyTurret.ServerPosition.Random();
+                        }
+                        else
+                        {
+                            if (ObjectsManager.ClosesetAllyTurret != null)
+                            {
+                                Program.Moveto = "ClosesetAllyTurret";
+                                Position = ObjectsManager.ClosesetAllyTurret.ServerPosition.Random();
+                            }
                         }
                     }
                 }
@@ -56,16 +64,16 @@
                 Program.Moveto = "BestAllyToFollow";
                 Position = ObjectsManager.BestAllyToFollow.ServerPosition.Random();
             }
-
+            /*
             if (Player.Instance.CountEnemiesInRange(800) > 0)
             {
                 if (ObjectsManager.NearestEnemy != null && ObjectsManager.AllyNexues != null)
                 {
-                    Program.Moveto = "AllyNexues";
+                    Program.Moveto = "AllyNexues2";
                     Position = ObjectsManager.AllyNexues.Position;
                 }
             }
-
+            */
             if (Position != null && NavMesh.GetCollisionFlags(Position) != CollisionFlags.Wall)
             {
                 MoveTo(Position);

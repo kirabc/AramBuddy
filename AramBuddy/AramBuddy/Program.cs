@@ -97,7 +97,7 @@
                 Brain.Decisions();
             }
 
-            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 100)));
+            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 150)));
             if (HR != null)
             {
                 ObjectsManager.HealthRelics.Remove(HR);
