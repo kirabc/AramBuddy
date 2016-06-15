@@ -1,30 +1,24 @@
-﻿#region
-
-using System;
-
-#endregion
-
-namespace AramBuddy.MainCore.Utility
+﻿namespace AramBuddy.MainCore.Utility
 {
+    using System;
+    using System.Linq;
+
+    using EloBuddy;
+    using EloBuddy.SDK;
+
+    using SharpDX;
+
     internal static class Misc
     {
-        public static bool SafeToDive
-        {
-            get
-            {
-                return (ObjectsManager.EnemyTurret != null) &&
-                       ((ObjectsManager.EnemyTurret.CountMinions() > 2) ||
-                        (ObjectsManager.EnemyTurret.CountAlliesInRange(800) > 1));
-            }
-        }
-
-        public static float TeamTotal(Obj_AI_Base target, bool Enemy = false, int range = 1250)
+        /// <summary>
+        ///     Returns teams totals - used for picking best fights.
+        /// </summary>
+        public static float TeamTotal(Vector3 Position, bool Enemy = false, int range = 1250)
         {
             float enemyteamTotal = 0;
             float allyteamTotal = 0;
 
-            foreach (
-                var enemy in EntityManager.Heroes.Enemies.Where(e => e.IsValidTarget() && e.IsInRange(target, range)))
+            foreach (var enemy in EntityManager.Heroes.Enemies.Where(e => !e.IsDead && e.IsValidTarget() && e.IsInRange(Position, range)))
             {
                 enemyteamTotal += enemy.TotalShieldHealth();
                 enemyteamTotal += enemy.Mana;
@@ -34,8 +28,7 @@ namespace AramBuddy.MainCore.Utility
                 enemyteamTotal += enemy.TotalAttackDamage;
             }
 
-            foreach (var ally in EntityManager.Heroes.Allies.Where(e => e.IsValidTarget() && e.IsInRange(target, range))
-                )
+            foreach (var ally in EntityManager.Heroes.Allies.Where(e => !e.IsDead && e.IsValidTarget() && e.IsInRange(Position, range)))
             {
                 allyteamTotal += ally.TotalShieldHealth();
                 allyteamTotal += ally.Mana;
@@ -47,27 +40,44 @@ namespace AramBuddy.MainCore.Utility
             return Enemy ? enemyteamTotal : allyteamTotal;
         }
 
-        public static bool UnderEnemyTurret(this Vector3 pos)
+        /// <summary>
+        ///     Returns true if it's safe to dive.
+        /// </summary>
+        public static bool SafeToDive
         {
-            return
-                EntityManager.Turrets.Enemies.Any(
-                    t => !t.IsDead && t.IsValidTarget() && t.IsInRange(pos, t.GetAutoAttackRange() + 20));
+            get
+            {
+                return ObjectsManager.EnemyTurret != null && Core.GameTickCount - Brain.LastTurretAttack > 3000
+                       && (ObjectsManager.EnemyTurret.CountMinions() > 2 || ObjectsManager.EnemyTurret.CountAlliesInRange(800) > 1);
+            }
         }
 
+        /// <summary>
+        ///     Returns true if Vector3 is UnderEnemyTurret.
+        /// </summary>
+        public static bool UnderEnemyTurret(this Vector3 pos)
+        {
+            return EntityManager.Turrets.Enemies.Any(t => !t.IsDead && t.IsValidTarget() && t.IsInRange(pos, t.GetAutoAttackRange() + 20));
+        }
+
+        /// <summary>
+        ///     Returns Minions Count.
+        /// </summary>
         public static float CountMinions(this Obj_AI_Base target, bool EnemyMinions = false, int range = 800)
         {
             return EnemyMinions
-                ? EntityManager.MinionsAndMonsters.EnemyMinions.Count(
-                    m => m.IsValidTarget() && m.IsInRange(target, range))
-                : EntityManager.MinionsAndMonsters.AlliedMinions.Count(
-                    m => m.IsValidTarget() && m.IsInRange(target, range));
+                       ? EntityManager.MinionsAndMonsters.EnemyMinions.Count(m => m.IsValidTarget() && m.IsInRange(target, range))
+                       : EntityManager.MinionsAndMonsters.AlliedMinions.Count(m => m.IsValidTarget() && m.IsInRange(target, range));
         }
 
+        /// <summary>
+        ///     Randomize Vector3.
+        /// </summary>
         public static Vector3 Random(this Vector3 pos)
         {
-            Random rnd = new Random();
-            int X = rnd.Next(pos.X - 200, pos.X + 200);
-            int Y = rnd.Next(pos.Y - 200, pos.Y + 200);
+            var rnd = new Random();
+            var X = rnd.Next((int)(pos.X - 222), (int)(pos.X + 222));
+            var Y = rnd.Next((int)(pos.Y - 222), (int)(pos.Y + 222));
 
             return new Vector3(X, Y, pos.Z);
         }
