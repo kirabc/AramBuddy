@@ -5,6 +5,8 @@
     using EloBuddy;
     using EloBuddy.SDK;
 
+    using GenesisSpellLibrary;
+
     using Modes;
 
     using Positioning;
@@ -16,6 +18,37 @@
     internal class Brain
     {
         /// <summary>
+        ///     Init bot functions.
+        /// </summary>
+        public static void Init()
+        {
+            // Initialize Genesis Spell Library.
+            SpellManager.Initialize();
+            SpellLibrary.Initialize();
+
+            // Clears and adds new HealthRelics.
+            ObjectsManager.HealthRelics.Clear();
+            foreach (var hr in ObjectManager.Get<GameObject>().Where(o => o.Name.ToLower().Contains("healthrelic") && o.IsValid).Where(hr => hr != null))
+            {
+                ObjectsManager.HealthRelics.Add(hr);
+            }
+
+            // Clears and adds new Traps.
+            ObjectsManager.EnemyTraps.Clear();
+            foreach (var trap in ObjectManager.Get<Obj_AI_Minion>().Where(trap => trap.IsEnemy && !trap.IsDead && ObjectsManager.TrapsNames.Contains(trap.Name)))
+            {
+                ObjectsManager.EnemyTraps.Add(trap);
+            }
+
+            // Overrides Orbwalker Movements
+            Orbwalker.OverrideOrbwalkPosition = OverrideOrbwalkPosition;
+
+            Obj_AI_Base.OnBasicAttack += Obj_AI_Base_OnBasicAttack;
+            GameObject.OnCreate += ObjectsManager.GameObject_OnCreate;
+            GameObject.OnDelete += ObjectsManager.GameObject_OnDelete;
+        }
+
+        /// <summary>
         ///     Decisions picking for the bot.
         /// </summary>
         public static void Decisions()
@@ -26,9 +59,6 @@
             // Ticks for the modes manager.
             ModesManager.OnTick();
 
-            // Disables Orbwalker Movements when the bot has Autsim.
-            Orbwalker.DisableMovement = Alone();
-
             // Moves to the Bot selected Position.
             if (Pathing.Position != Vector3.Zero && Pathing.Position != null)
             {
@@ -36,7 +66,7 @@
             }
 
             // Removes HealthRelics if a hero is in range with them.
-            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 150)));
+            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 125)));
             if (HR != null)
             {
                 ObjectsManager.HealthRelics.Remove(HR);
@@ -67,6 +97,14 @@
             {
                 LastTurretAttack = Core.GameTickCount;
             }
+        }
+
+        /// <summary>
+        ///     Override orbwalker position.
+        /// </summary>
+        private static Vector3? OverrideOrbwalkPosition()
+        {
+            return Pathing.Position;
         }
     }
 }

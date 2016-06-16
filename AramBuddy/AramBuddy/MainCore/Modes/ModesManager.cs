@@ -1,14 +1,33 @@
 ﻿namespace AramBuddy.MainCore.Modes
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using AramBuddy.MainCore.Utility;
 
     using EloBuddy;
     using EloBuddy.SDK;
+    using EloBuddy.SDK.Menu.Values;
+    using EloBuddy.SDK.Spells;
+
+    using GenesisSpellLibrary;
+    using GenesisSpellLibrary.Spells;
 
     internal class ModesManager
     {
+        protected static SpellBase Spell => SpellManager.CurrentSpells;
+
+        public static List<Spell.SpellBase> Spelllist = new List<Spell.SpellBase>() { Spell.Q, Spell.W, Spell.E, Spell.R };
+
         public static void OnTick()
         {
+            Orbwalker.DisableAttacking = Flee || None;
+
+            if (!Program.MenuIni["DisableSpells"].Cast<CheckBox>().CurrentValue)
+            {
+                ModesBase();
+            }
+
             // Activate Flee mode
             if (Flee)
             {
@@ -41,6 +60,85 @@
             if (None)
             {
                 Orbwalker.ActiveModesFlags = Orbwalker.ActiveModes.None;
+            }
+        }
+
+        /// <summary>
+        ///     Casts Spells On Target.
+        /// </summary>
+        public static void ModesBase()
+        {
+            foreach (var spell in Spelllist)
+            {
+                if (Combo || (Harass && Player.Instance.ManaPercent > 60))
+                {
+                    Cast(TargetSelector.GetTarget(spell.Range, DamageType.Mixed));
+                }
+                if (spell.Slot != SpellSlot.R)
+                {
+                    if (LaneClear)
+                    {
+                        var spell1 = spell;
+                        foreach (
+                            var minion in
+                                EntityManager.MinionsAndMonsters.EnemyMinions.Where(
+                                    m => m.IsValidTarget(spell1.Range) && Player.Instance.ManaPercent > 60))
+                        {
+                            Cast(minion);
+                        }
+                    }
+                }
+            }
+            if (Flee)
+            {
+                if (SummonerSpells.Ghost.IsReady())
+                {
+                    SummonerSpells.Ghost.Cast();
+                }
+                if (SummonerSpells.Flash.IsReady() && Player.Instance.HealthPercent < 20 && ObjectsManager.AllyNexues != null)
+                {
+                    SummonerSpells.Flash.Cast(Player.Instance.ServerPosition.Extend(ObjectsManager.AllyNexues, SummonerSpells.Flash.Range).To3D());
+                }
+                if (SummonerSpells.Heal.IsReady() && Player.Instance.HealthPercent < 15)
+                {
+                    SummonerSpells.Heal.Cast();
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Casting Logic.
+        /// </summary>
+        public static void Cast(Obj_AI_Base target)
+        {
+            foreach (var spell in Spelllist.Where(spell => spell.IsReady() && target != null && target.IsValidTarget(spell.Range)))
+            {
+                if (spell is Spell.Active)
+                {
+                    spell.Cast();
+                }
+
+                if ((spell is Spell.Skillshot || spell is Spell.Targeted || spell is Spell.Ranged) && !(spell is Spell.Chargeable))
+                {
+                    spell.Cast(target);
+                }
+
+                if (spell is Spell.Chargeable)
+                {
+                    var Chargeable = spell as Spell.Chargeable;
+
+                    if (!Chargeable.IsCharging)
+                    {
+                        Chargeable.StartCharging();
+                    }
+                    else
+                    {
+                        if (Chargeable.IsInRange(target))
+                        {
+                            Chargeable.Cast(target);
+                        }
+                    }
+                }
             }
         }
 

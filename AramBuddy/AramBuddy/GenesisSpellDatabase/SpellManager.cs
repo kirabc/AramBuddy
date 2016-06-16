@@ -1,13 +1,13 @@
-﻿#region
-
-using System.Collections.Generic;
-using System.Linq;
-using GenesisSpellLibrary.Spells;
-
-#endregion
-
-namespace GenesisSpellLibrary
+﻿namespace GenesisSpellLibrary
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Spells;
+
+    using EloBuddy;
+    using EloBuddy.SDK;
+
     public static class SpellManager
     {
         static SpellManager()
@@ -39,7 +39,7 @@ namespace GenesisSpellLibrary
 
         public static void Initialize()
         {
-            EntityManager.Heroes.AllHeroes.ForEach(PrepareSpells);
+            PrepareSpells(Player.Instance);
         }
 
         public static void PrepareSpells(AIHeroClient hero)

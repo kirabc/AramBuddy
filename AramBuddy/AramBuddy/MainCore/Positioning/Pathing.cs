@@ -24,7 +24,7 @@
         public static void BestPosition()
         {
             // Moves to HealthRelic if the bot needs heal.
-            if ((Player.Instance.HealthPercent < 70 || Player.Instance.ManaPercent < 10) && ObjectsManager.HealthRelic != null)
+            if ((Player.Instance.HealthPercent < 70 || (Player.Instance.ManaPercent < 10 && Player.Instance.Mana > 0)) && ObjectsManager.HealthRelic != null)
             {
                 Program.Moveto = "HealthRelic";
                 Position = ObjectsManager.HealthRelic.Position.Random();
@@ -41,24 +41,12 @@
             }
 
             // Moves to AllyNexues if the bot is diving and it's not safe to dive.
-            if (Player.Instance.IsUnderEnemyturret() && !Misc.SafeToDive && ObjectsManager.AllyNexues != null)
+            if (((Player.Instance.IsUnderEnemyturret() && !Misc.SafeToDive) || Core.GameTickCount - Brain.LastTurretAttack < 2000) && ObjectsManager.AllySpawn != null)
             {
-                Program.Moveto = "AllyNexues1";
-                Position = ObjectsManager.AllyNexues.Position.Random();
+                Program.Moveto = "AllySpawn";
+                Position = ObjectsManager.AllySpawn.Position.Random();
                 return;
             }
-
-            /*
-            foreach (var point in (from circle in ObjectsManager.BestAlliesToFollow.Select(a => new Geometry.Polygon.Circle(a.ServerPosition, 400, 1)).ToList()
-                                   from point in circle.Points
-                                   where Misc.TeamTotal(point.To3D()) > Misc.TeamTotal(point.To3D(), true)
-                                   select point).Where(point => point != null))
-            {
-                Program.Moveto = "AllyGroup";
-                Position = point.To3D().Random();
-                return;
-            }
-            */
 
             if (Player.Instance.IsMelee)
             {
@@ -199,8 +187,8 @@
                     return;
                 }
 
-                // This to prevent Walking into walls / buildings.
-                if (NavMesh.GetCollisionFlags(Position) == CollisionFlags.Wall || NavMesh.GetCollisionFlags(Position) == CollisionFlags.Building)
+                // This to prevent Walking into walls, buildings or traps.
+                if (NavMesh.GetCollisionFlags(pos) == CollisionFlags.Wall || NavMesh.GetCollisionFlags(pos) == CollisionFlags.Building || ObjectsManager.EnemyTraps.Any(t => t.IsInRange(pos, t.BoundingRadius * 4)))
                 {
                     return;
                 }

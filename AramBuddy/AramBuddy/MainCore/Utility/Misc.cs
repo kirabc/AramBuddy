@@ -76,8 +76,8 @@
         public static Vector3 Random(this Vector3 pos)
         {
             var rnd = new Random();
-            var X = rnd.Next((int)(pos.X - 222), (int)(pos.X + 222));
-            var Y = rnd.Next((int)(pos.Y - 222), (int)(pos.Y + 222));
+            var X = rnd.Next((int)(pos.X - 200), (int)(pos.X + 200));
+            var Y = rnd.Next((int)(pos.Y - 200), (int)(pos.Y + 200));
 
             return new Vector3(X, Y, pos.Z);
         }

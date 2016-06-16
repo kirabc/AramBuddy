@@ -6,6 +6,7 @@
 
     using EloBuddy;
     using EloBuddy.SDK;
+    using EloBuddy.SDK.Menu.Values;
 
     internal class ObjectsManager
     {
@@ -19,6 +20,11 @@
                 HealthRelics.Add(sender);
                 Chat.Print("create");
             }
+
+            if (TrapsNames.Contains(sender.Name))
+            {
+                EnemyTraps.Add((Obj_AI_Minion)sender);
+            }
         }
 
         /// <summary>
@@ -31,12 +37,29 @@
                 HealthRelics.Remove(sender);
                 Chat.Print("delete");
             }
+            if (EnemyTraps.Contains(sender))
+            {
+                EnemyTraps.Remove((Obj_AI_Minion)sender);
+            }
         }
+
+        /// <summary>
+        ///     Traps Names.
+        /// </summary>
+        public static List<string> TrapsNames = new List<string>()
+                                                    {
+                                                        "Cupcake Trap", "Noxious Trap", "Jack In The Box"
+                                                    };
 
         /// <summary>
         ///     HealthRelics list.
         /// </summary>
         public static List<GameObject> HealthRelics = new List<GameObject>();
+
+        /// <summary>
+        ///     HealthRelics list.
+        /// </summary>
+        public static List<Obj_AI_Minion> EnemyTraps = new List<Obj_AI_Minion>();
 
         /// <summary>
         ///     Returns Nearest Enemy.
@@ -62,9 +85,8 @@
                     EntityManager.Heroes.Allies.OrderByDescending(a => a.Distance(AllyNexues))
                         .Where(
                             a =>
-                            a.IsValidTarget() && (a.IsUnderEnemyturret() && Misc.SafeToDive)
-                            || !a.IsUnderEnemyturret() && a.HealthPercent > 10 && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe
-                            && (a.IsMoving || a.Spellbook.IsCharging || a.Spellbook.IsChanneling));
+                            a.IsValidTarget() && ((a.IsUnderEnemyturret() && Misc.SafeToDive) || !a.IsUnderEnemyturret()) && a.CountAlliesInRange(1250) > 1 && a.HealthPercent > 10 && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe
+                            && (a.IsMoving || a.Spellbook.IsCharging || a.Spellbook.IsChanneling || a.Spellbook.IsAutoAttacking || a.IsAttackingPlayer));
             }
         }
 
@@ -88,7 +110,7 @@
             {
                 return
                     BestAlliesToFollow.OrderBy(a => a.Distance(Player.Instance))
-                        .FirstOrDefault(a => Misc.TeamTotal(a.ServerPosition) - Misc.TeamTotal(a.ServerPosition, true) > 0);
+                        .FirstOrDefault(a => Misc.TeamTotal(a.ServerPosition, false, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue) - Misc.TeamTotal(a.ServerPosition, true, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue) > 0);
             }
         }
 
@@ -100,8 +122,8 @@
             get
             {
                 return
-                    BestAlliesToFollow.OrderByDescending(a => Misc.TeamTotal(a.ServerPosition) - Misc.TeamTotal(a.ServerPosition, true))
-                        .FirstOrDefault(a => a.CountAlliesInRange(900) > 1);
+                    BestAlliesToFollow.OrderByDescending(a => Misc.TeamTotal(a.ServerPosition, false, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue) - Misc.TeamTotal(a.ServerPosition, true, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue))
+                        .FirstOrDefault();
             }
         }
 
@@ -114,7 +136,7 @@
             {
                 return
                     HealthRelics.OrderBy(e => e.Distance(Player.Instance))
-                        .FirstOrDefault(e => e.IsValid && e.Distance(Player.Instance) < 900 && e.CountEnemiesInRange(1000) < 1);
+                        .FirstOrDefault(e => e.IsValid && e.Distance(Player.Instance) < 900 && e.CountEnemiesInRange(800) < 1);
             }
         }
 
@@ -131,7 +153,7 @@
                         .FirstOrDefault(
                             m =>
                             m.IsValidTarget() && m.IsValid && m.IsHPBarRendered && !m.IsDead && !m.IsZombie && m.Health > 65
-                            && m.CountAlliesInRange(800) >= m.CountEnemiesInRange(800));
+                            && m.CountAlliesInRange(1000) >= m.CountEnemiesInRange(1000));
             }
         }
 
@@ -218,6 +240,17 @@
             get
             {
                 return ObjectManager.Get<Obj_HQ>().FirstOrDefault(i => i.IsAlly);
+            }
+        }
+
+        /// <summary>
+        ///     Returns Ally SpawnPoint.
+        /// </summary>
+        public static Obj_SpawnPoint AllySpawn
+        {
+            get
+            {
+                return ObjectManager.Get<Obj_SpawnPoint>().FirstOrDefault(i => i.IsAlly);
             }
         }
     }
