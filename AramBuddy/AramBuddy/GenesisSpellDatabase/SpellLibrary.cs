@@ -1,11 +1,10 @@
-﻿namespace GenesisSpellLibrary
+﻿namespace AramBuddy.GenesisSpellDatabase
 {
     using System;
-    using System.Collections.Generic;
-
-    using Spells;
 
     using EloBuddy;
+
+    using GenesisSpellLibrary.Spells;
 
     internal class SpellLibrary
     {
@@ -19,7 +18,10 @@
 
             else
             {
-                Chat.Print("<font color='#FF0000'><b>AramBuddy ERROR:</b></font> " + heroChampion + " is not supported.");
+                // Exception has been cought; Notify the user of the error and print the exception to the console
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Error] " + heroChampion + " is not supported Genesis Spell Library." + Environment.NewLine);
+                Console.ResetColor();
                 return null;
             }
         }

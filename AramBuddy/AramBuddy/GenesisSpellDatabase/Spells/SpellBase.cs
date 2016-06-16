@@ -20,6 +20,19 @@ namespace GenesisSpellLibrary.Spells
 
         public Dictionary<string, Func<AIHeroClient, Obj_AI_Base, bool>> LogicDictionary;
 
+        public bool IsCC(Spell.SpellBase spell)
+        {
+            return false;
+        }
+        public bool IsDash(Spell.SpellBase spell)
+        {
+            return false;
+        }
+        public bool IsToggle(Spell.SpellBase spell)
+        {
+            return false;
+        }
+        
         public bool QisCC = false;
 
         public bool QisDash = false;

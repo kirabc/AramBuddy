@@ -49,7 +49,7 @@
             Timer = Game.Time;
             Game.OnTick += Game_OnTick;
             Events.OnGameEnd += Events_OnGameEnd;
-            Drawing.OnEndScene += Drawing_OnEndScene;
+            Obj_AI_Base.OnLevelUp += LvlupSpells.Obj_AI_BaseOnOnLevelUp;
         }
 
         private static void Events_OnGameEnd(EventArgs args)
@@ -86,12 +86,12 @@
 
             foreach (var hr in ObjectsManager.HealthRelics.Where(h => h.IsValid))
             {
-                Circle.Draw(Color.White, 125, hr.Position);
+                Circle.Draw(Color.White, hr.BoundingRadius * 2, hr.Position);
             }
 
             foreach (var trap in ObjectsManager.EnemyTraps)
             {
-                Circle.Draw(Color.White, trap.BoundingRadius * 4, trap.Position);
+                Circle.Draw(Color.White, trap.BoundingRadius * 3, trap.Position);
             }
 
             if (Pathing.Position != null && Pathing.Position != Vector3.Zero)
@@ -114,6 +114,7 @@
                     // Initialize The Bot.
                     Brain.Init();
                     Init();
+                    Drawing.OnEndScene += Drawing_OnEndScene;
                     Chat.Print("AramBuddy Loaded !");
                 }
             }

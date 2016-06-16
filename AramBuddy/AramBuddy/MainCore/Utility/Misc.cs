@@ -5,6 +5,7 @@
 
     using EloBuddy;
     using EloBuddy.SDK;
+    using EloBuddy.SDK.Menu.Values;
 
     using SharpDX;
 
@@ -13,12 +14,12 @@
         /// <summary>
         ///     Returns teams totals - used for picking best fights.
         /// </summary>
-        public static float TeamTotal(Vector3 Position, bool Enemy = false, int range = 1250)
+        public static float TeamTotal(Vector3 Position, bool Enemy = false)
         {
             float enemyteamTotal = 0;
             float allyteamTotal = 0;
 
-            foreach (var enemy in EntityManager.Heroes.Enemies.Where(e => !e.IsDead && e.IsValidTarget() && e.IsInRange(Position, range)))
+            foreach (var enemy in EntityManager.Heroes.Enemies.Where(e => !e.IsDead && e.IsValidTarget() && e.IsInRange(Position, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue)))
             {
                 enemyteamTotal += enemy.TotalShieldHealth();
                 enemyteamTotal += enemy.Mana;
@@ -28,7 +29,7 @@
                 enemyteamTotal += enemy.TotalAttackDamage;
             }
 
-            foreach (var ally in EntityManager.Heroes.Allies.Where(e => !e.IsDead && e.IsValidTarget() && e.IsInRange(Position, range)))
+            foreach (var ally in EntityManager.Heroes.Allies.Where(e => !e.IsDead && e.IsValidTarget() && e.IsInRange(Position, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue)))
             {
                 allyteamTotal += ally.TotalShieldHealth();
                 allyteamTotal += ally.Mana;
@@ -47,7 +48,7 @@
         {
             get
             {
-                return ObjectsManager.EnemyTurret != null && Core.GameTickCount - Brain.LastTurretAttack > 3000
+                return ObjectsManager.EnemyTurret != null && Player.Instance.HealthPercent > 10 && Core.GameTickCount - Brain.LastTurretAttack > 3000
                        && (ObjectsManager.EnemyTurret.CountMinions() > 2 || ObjectsManager.EnemyTurret.CountAlliesInRange(800) > 1);
             }
         }
@@ -57,7 +58,7 @@
         /// </summary>
         public static bool UnderEnemyTurret(this Vector3 pos)
         {
-            return EntityManager.Turrets.Enemies.Any(t => !t.IsDead && t.IsValidTarget() && t.IsInRange(pos, t.GetAutoAttackRange() + 20));
+            return EntityManager.Turrets.Enemies.Any(t => !t.IsDead && t.IsValidTarget() && t.IsInRange(pos, t.GetAutoAttackRange() + (Player.Instance.BoundingRadius * 2)));
         }
 
         /// <summary>

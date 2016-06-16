@@ -2,6 +2,8 @@
 {
     using System.Linq;
 
+    using AramBuddy.GenesisSpellDatabase;
+
     using EloBuddy;
     using EloBuddy.SDK;
 
@@ -66,11 +68,18 @@
             }
 
             // Removes HealthRelics if a hero is in range with them.
-            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, 125)));
+            var HR = ObjectsManager.HealthRelics.FirstOrDefault(h => EntityManager.Heroes.AllHeroes.Any(a => !a.IsDead && a.IsInRange(h, h.BoundingRadius * 2)));
             if (HR != null)
             {
                 ObjectsManager.HealthRelics.Remove(HR);
-                Chat.Print("Removed");
+                Chat.Print("Removed HR");
+            }
+
+            var trap = ObjectsManager.EnemyTraps.FirstOrDefault(h => EntityManager.Heroes.Allies.Any(a => !a.IsDead && a.IsInRange(h, h.BoundingRadius * 2)));
+            if (trap != null)
+            {
+                ObjectsManager.EnemyTraps.Remove(trap);
+                Chat.Print("remove trap");
             }
         }
 
@@ -79,7 +88,7 @@
         /// </summary>
         public static bool Alone()
         {
-            return Player.Instance.CountAlliesInRange(1000) < 2 || Player.Instance.Path.Any(p => p.IsInRange(Game.CursorPos, 50))
+            return Player.Instance.CountAlliesInRange(2000) < 2 || Player.Instance.Path.Any(p => p.IsInRange(Game.CursorPos, 50))
                    || EntityManager.Heroes.Allies.All(a => !a.IsMe && a.IsInShopRange());
         }
 

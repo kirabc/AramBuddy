@@ -25,9 +25,13 @@
 
             if (!Program.MenuIni["DisableSpells"].Cast<CheckBox>().CurrentValue)
             {
+                if (SummonerSpells.Heal.IsReady() && Player.Instance.HealthPercent < 15)
+                {
+                    SummonerSpells.Heal.Cast();
+                }
                 ModesBase();
             }
-
+            
             // Activate Flee mode
             if (Flee)
             {
@@ -68,11 +72,11 @@
         /// </summary>
         public static void ModesBase()
         {
-            foreach (var spell in Spelllist)
+            foreach (var spell in Spelllist.Where(s => s.IsReady()))
             {
                 if (Combo || (Harass && Player.Instance.ManaPercent > 60))
                 {
-                    Cast(TargetSelector.GetTarget(spell.Range, DamageType.Mixed));
+                    Casting(spell, TargetSelector.GetTarget(spell.Range, DamageType.Mixed));
                 }
                 if (spell.Slot != SpellSlot.R)
                 {
@@ -84,13 +88,31 @@
                                 EntityManager.MinionsAndMonsters.EnemyMinions.Where(
                                     m => m.IsValidTarget(spell1.Range) && Player.Instance.ManaPercent > 60))
                         {
-                            Cast(minion);
+                            Casting(spell, minion);
                         }
                     }
                 }
             }
+
             if (Flee)
             {
+                if (Spell.Q.IsReady() && Spell.Q.IsCC())
+                {
+                    Casting(Spell.Q, TargetSelector.GetTarget(Spell.Q.Range, DamageType.Mixed));
+                }
+                if (Spell.W.IsReady() && Spell.W.IsCC())
+                {
+                    Casting(Spell.W, TargetSelector.GetTarget(Spell.W.Range, DamageType.Mixed));
+                }
+                if (Spell.E.IsReady() && Spell.E.IsCC())
+                {
+                    Casting(Spell.E, TargetSelector.GetTarget(Spell.E.Range, DamageType.Mixed));
+                }
+                if (Spell.R.IsReady() && Spell.R.IsCC())
+                {
+                    Casting(Spell.R, TargetSelector.GetTarget(Spell.R.Range, DamageType.Mixed));
+                }
+
                 if (SummonerSpells.Ghost.IsReady())
                 {
                     SummonerSpells.Ghost.Cast();
@@ -99,45 +121,72 @@
                 {
                     SummonerSpells.Flash.Cast(Player.Instance.ServerPosition.Extend(ObjectsManager.AllyNexues, SummonerSpells.Flash.Range).To3D());
                 }
-                if (SummonerSpells.Heal.IsReady() && Player.Instance.HealthPercent < 15)
-                {
-                    SummonerSpells.Heal.Cast();
-                }
             }
         }
 
         /// <summary>
         ///     Casting Logic.
         /// </summary>
-        public static void Cast(Obj_AI_Base target)
+        public static void Casting(Spell.SpellBase spellBase, Obj_AI_Base target)
         {
-            foreach (var spell in Spelllist.Where(spell => spell.IsReady() && target != null && target.IsValidTarget(spell.Range)))
+            if(spellBase == null || target == null) return;
+
+            if (spellBase.IsDash())
             {
-                if (spell is Spell.Active)
-                {
-                    spell.Cast();
-                }
+                spellBase.Cast(target.ServerPosition.Extend(Player.Instance, 200).To3D());
+                return;
+            }
 
-                if ((spell is Spell.Skillshot || spell is Spell.Targeted || spell is Spell.Ranged) && !(spell is Spell.Chargeable))
+            if (spellBase.IsToggle())
+            {
+                if (spellBase is Spell.Active)
                 {
-                    spell.Cast(target);
-                }
-
-                if (spell is Spell.Chargeable)
-                {
-                    var Chargeable = spell as Spell.Chargeable;
-
-                    if (!Chargeable.IsCharging)
+                    if (spellBase.Handle.ToggleState != 2 && target.IsValidTarget(spellBase.Range))
                     {
-                        Chargeable.StartCharging();
+                        spellBase.Cast();
                     }
-                    else
+                    if (spellBase.Handle.ToggleState == 2 && !target.IsValidTarget(spellBase.Range))
                     {
-                        if (Chargeable.IsInRange(target))
-                        {
-                            Chargeable.Cast(target);
-                        }
+                        spellBase.Cast();
                     }
+                }
+                else
+                {
+                    if (spellBase.Handle.ToggleState != 2 && target.IsValidTarget(spellBase.Range))
+                    {
+                        spellBase.Cast(target);
+                    }
+                    if (spellBase.Handle.ToggleState == 2 && !target.IsValidTarget(spellBase.Range))
+                    {
+                        spellBase.Cast(Game.CursorPos);
+                    }
+                }
+            }
+
+            if (spellBase is Spell.Active)
+            {
+                spellBase.Cast();
+                return;
+            }
+
+            if ((spellBase is Spell.Skillshot || spellBase is Spell.Targeted || spellBase is Spell.Ranged) && !(spellBase is Spell.Chargeable))
+            {
+                spellBase.Cast(target);
+                return;
+            }
+
+            if (spellBase is Spell.Chargeable)
+            {
+                var Chargeable = spellBase as Spell.Chargeable;
+
+                if (!Chargeable.IsCharging)
+                {
+                    Chargeable.StartCharging();
+                    return;
+                }
+                if (Chargeable.IsInRange(target))
+                {
+                    Chargeable.Cast(target);
                 }
             }
         }
@@ -151,7 +200,7 @@
             {
                 return Misc.TeamTotal(Player.Instance.ServerPosition) > Misc.TeamTotal(Player.Instance.ServerPosition, true)
                        && Player.Instance.CountAlliesInRange(800) >= Player.Instance.CountEnemiesInRange(800)
-                       && Player.Instance.CountEnemiesInRange(800) > 0 && !Player.Instance.ServerPosition.UnderEnemyTurret();
+                       && Player.Instance.CountEnemiesInRange(800) > 0 && ((Player.Instance.ServerPosition.UnderEnemyTurret() && Misc.SafeToDive) || !Player.Instance.IsUnderEnemyturret());
             }
         }
 
@@ -164,7 +213,7 @@
             {
                 return (Misc.TeamTotal(Player.Instance.ServerPosition) < Misc.TeamTotal(Player.Instance.ServerPosition, true)
                         || Player.Instance.IsUnderHisturret()) && Player.Instance.CountEnemiesInRange(800) > 0
-                       && !Player.Instance.ServerPosition.UnderEnemyTurret() && !Flee;
+                       && ((Player.Instance.ServerPosition.UnderEnemyTurret() && Misc.SafeToDive) || !Player.Instance.IsUnderEnemyturret()) && !Flee;
             }
         }
 
@@ -191,7 +240,7 @@
                 return !Player.Instance.IsUnderHisturret()
                        && ((Misc.TeamTotal(Player.Instance.ServerPosition) < Misc.TeamTotal(Player.Instance.ServerPosition, true)
                             && Player.Instance.CountAlliesInRange(800) < 2) || (Player.Instance.IsUnderEnemyturret() && !Misc.SafeToDive)
-                           || (Player.Instance.CountEnemiesInRange(800) > Player.Instance.CountAlliesInRange(800)));
+                           || (Player.Instance.CountEnemiesInRange(800) > Player.Instance.CountAlliesInRange(800)) || (Player.Instance.HealthPercent < 15 && (Player.Instance.IsUnderEnemyturret() || Player.Instance.CountEnemiesInRange(1000) > 1)));
             }
         }
 
@@ -214,11 +263,11 @@
             get
             {
                 return (ObjectsManager.EnemyNexues != null
-                        && ObjectsManager.EnemyNexues.IsInRange(Player.Instance, Player.Instance.GetAutoAttackRange() + 30))
+                        && ObjectsManager.EnemyNexues.IsInRange(Player.Instance, Player.Instance.GetAutoAttackRange() + ObjectsManager.EnemyNexues.BoundingRadius))
                        || (ObjectsManager.EnemyInhb != null
-                           && ObjectsManager.EnemyInhb.IsInRange(Player.Instance, Player.Instance.GetAutoAttackRange() + 30))
+                           && ObjectsManager.EnemyInhb.IsInRange(Player.Instance, Player.Instance.GetAutoAttackRange() + +ObjectsManager.EnemyInhb.BoundingRadius))
                        || (ObjectsManager.EnemyTurret != null
-                           && ObjectsManager.EnemyTurret.IsInRange(Player.Instance, Player.Instance.GetAutoAttackRange() + 30));
+                           && ObjectsManager.EnemyTurret.IsInRange(Player.Instance, Player.Instance.GetAutoAttackRange() +ObjectsManager.EnemyTurret.BoundingRadius));
             }
         }
     }

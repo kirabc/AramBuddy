@@ -18,11 +18,12 @@
             if (sender.Name.ToLower().Contains("healthrelic"))
             {
                 HealthRelics.Add(sender);
-                Chat.Print("create");
+                Chat.Print("create healthrelic");
             }
 
-            if (TrapsNames.Contains(sender.Name))
+            if (TrapsNames.Contains(sender.Name) && sender.IsEnemy)
             {
+                Chat.Print("create trap");
                 EnemyTraps.Add((Obj_AI_Minion)sender);
             }
         }
@@ -35,11 +36,12 @@
             if (sender.Name.ToLower().Contains("healthrelic"))
             {
                 HealthRelics.Remove(sender);
-                Chat.Print("delete");
+                Chat.Print("delete healthrelic");
             }
-            if (EnemyTraps.Contains(sender))
+            if (EnemyTraps.Contains(sender) && sender.IsEnemy)
             {
                 EnemyTraps.Remove((Obj_AI_Minion)sender);
+                Chat.Print("delete trap");
             }
         }
 
@@ -85,8 +87,8 @@
                     EntityManager.Heroes.Allies.OrderByDescending(a => a.Distance(AllyNexues))
                         .Where(
                             a =>
-                            a.IsValidTarget() && ((a.IsUnderEnemyturret() && Misc.SafeToDive) || !a.IsUnderEnemyturret()) && a.CountAlliesInRange(1250) > 1 && a.HealthPercent > 10 && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe
-                            && (a.IsMoving || a.Spellbook.IsCharging || a.Spellbook.IsChanneling || a.Spellbook.IsAutoAttacking || a.IsAttackingPlayer));
+                            a.IsValidTarget() && ((a.IsUnderEnemyturret() && Misc.SafeToDive) || !a.IsUnderEnemyturret()) && a.CountAlliesInRange(1250) > 1 && a.HealthPercent > 15 && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe
+                            && (a.IsMoving || a.Spellbook.IsCharging || a.Spellbook.IsChanneling || a.Spellbook.IsAutoAttacking || a.IsAttackingPlayer || a.Spellbook.IsCastingSpell));
             }
         }
 
@@ -110,7 +112,7 @@
             {
                 return
                     BestAlliesToFollow.OrderBy(a => a.Distance(Player.Instance))
-                        .FirstOrDefault(a => Misc.TeamTotal(a.ServerPosition, false, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue) - Misc.TeamTotal(a.ServerPosition, true, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue) > 0);
+                        .FirstOrDefault(a => Misc.TeamTotal(a.ServerPosition) - Misc.TeamTotal(a.ServerPosition, true) > 0);
             }
         }
 
@@ -122,8 +124,8 @@
             get
             {
                 return
-                    BestAlliesToFollow.OrderByDescending(a => Misc.TeamTotal(a.ServerPosition, false, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue) - Misc.TeamTotal(a.ServerPosition, true, Program.MenuIni["Safe"].Cast<Slider>().CurrentValue))
-                        .FirstOrDefault();
+                    BestAlliesToFollow.OrderByDescending(a => Misc.TeamTotal(a.ServerPosition) - Misc.TeamTotal(a.ServerPosition, true))
+                        .FirstOrDefault(a => a.CountAlliesInRange(1000) > a.CountEnemiesInRange(1000));
             }
         }
 
@@ -136,7 +138,7 @@
             {
                 return
                     HealthRelics.OrderBy(e => e.Distance(Player.Instance))
-                        .FirstOrDefault(e => e.IsValid && e.Distance(Player.Instance) < 900 && e.CountEnemiesInRange(800) < 1);
+                        .FirstOrDefault(e => e.IsValid && e.Distance(Player.Instance) < 1000 && e.CountEnemiesInRange(800) < 1);
             }
         }
 
@@ -148,12 +150,7 @@
             get
             {
                 return
-                    EntityManager.MinionsAndMonsters.AlliedMinions.OrderByDescending(a => a.Distance(AllyNexues))
-                        .Where(m => (m.IsUnderEnemyturret() && Misc.SafeToDive) || !m.IsUnderEnemyturret())
-                        .FirstOrDefault(
-                            m =>
-                            m.IsValidTarget() && m.IsValid && m.IsHPBarRendered && !m.IsDead && !m.IsZombie && m.Health > 65
-                            && m.CountAlliesInRange(1000) >= m.CountEnemiesInRange(1000));
+                    EntityManager.MinionsAndMonsters.AlliedMinions.OrderByDescending(a => a.Distance(AllyNexues)).FirstOrDefault(m => m.CountEnemiesInRange(1250) < 2 && ((m.IsUnderEnemyturret() && Misc.SafeToDive) || !m.IsUnderEnemyturret()) && m.IsValidTarget(2500) && m.IsValid && m.IsHPBarRendered && !m.IsDead && !m.IsZombie && m.HealthPercent > 25 && Misc.TeamTotal(m.ServerPosition) - Misc.TeamTotal(m.ServerPosition, true) >= 0);
             }
         }
 
