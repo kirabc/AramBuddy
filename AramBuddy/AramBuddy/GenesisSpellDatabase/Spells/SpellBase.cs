@@ -39,11 +39,15 @@ namespace GenesisSpellLibrary.Spells
 
         public bool QisToggle = false;
 
+        public bool QisSaver = false;
+
         public bool WisCC = false;
 
         public bool WisDash = false;
 
         public bool WisToggle = false;
+
+        public bool WisSaver = false;
 
         public bool EisCC = false;
 
@@ -51,10 +55,14 @@ namespace GenesisSpellLibrary.Spells
 
         public bool EisToggle = false;
 
+        public bool EisSaver = false;
+
         public bool RisCC = false;
 
         public bool RisDash = false;
 
         public bool RisToggle = false;
+
+        public bool RisSaver = false;
     }
 }

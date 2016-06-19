@@ -3,14 +3,13 @@
 using System;
 using System.IO;
 using System.Linq;
+using EloBuddy;
+using EloBuddy.SDK;
 
 #endregion
 
 namespace AramBuddy.AutoShop.Sequences
 {
-    using EloBuddy;
-    using EloBuddy.SDK;
-
     internal class Buy
     {
         /// <summary>

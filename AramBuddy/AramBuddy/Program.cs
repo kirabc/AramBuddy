@@ -4,7 +4,7 @@
     using System.Linq;
 
     using AramBuddy.MainCore;
-    using AramBuddy.MainCore.Positioning;
+    using AramBuddy.MainCore.Logics;
     using AramBuddy.MainCore.Utility;
 
     using EloBuddy;
@@ -64,6 +64,15 @@
             MenuIni.Add("DisableSpells", new CheckBox("Disable Built-in Casting Logic", false));
             MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 0, 2500));
             MenuIni.AddLabel("More Value = more defensive playstyle");
+
+            // Initialize the AutoShop.
+            AutoShop.Setup.Init();
+
+            // Initialize Bot Functions.
+            Brain.Init();
+
+            Drawing.OnEndScene += Drawing_OnEndScene;
+            Chat.Print("AramBuddy Loaded !");
         }
 
         private static void Drawing_OnEndScene(EventArgs args)
@@ -74,7 +83,7 @@
                 System.Drawing.Color.White,
                 "AllyTeamTotal: " + (int)Misc.TeamTotal(Player.Instance.ServerPosition) + " | EnemyTeamTotal: "
                 + (int)Misc.TeamTotal(Player.Instance.ServerPosition, true) + " | MoveTo: " + Moveto + " | ActiveMode: " + Orbwalker.ActiveModesFlags
-                + " | Alone: " + Brain.Alone() + " | AttackObject: " + MainCore.Modes.ModesManager.AttackObject + " | LastTurretAttack: "
+                + " | Alone: " + Brain.Alone() + " | AttackObject: " + ModesManager.AttackObject + " | LastTurretAttack: "
                 + (Core.GameTickCount - Brain.LastTurretAttack) + " | SafeToDive: " + Misc.SafeToDive);
 
             Drawing.DrawText(
@@ -98,6 +107,11 @@
             {
                 Circle.Draw(Color.White, 100, Pathing.Position);
             }
+
+            foreach (var spell in ModesManager.Spelllist)
+            {
+                Circle.Draw(Color.Chartreuse, spell.Range, Player.Instance);
+            }
         }
 
         private static void Game_OnTick(EventArgs args)
@@ -107,15 +121,9 @@
                 if (Game.Time - Timer >= 5)
                 {
                     Loaded = true;
-
-                    // Initialize the AutoShop.
-                    AutoShop.Setup.Init();
-
+                    
                     // Initialize The Bot.
-                    Brain.Init();
                     Init();
-                    Drawing.OnEndScene += Drawing_OnEndScene;
-                    Chat.Print("AramBuddy Loaded !");
                 }
             }
             else

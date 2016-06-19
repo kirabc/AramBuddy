@@ -2,16 +2,15 @@
 {
     using System.Linq;
 
-    using AramBuddy.GenesisSpellDatabase;
-
     using EloBuddy;
     using EloBuddy.SDK;
+    using EloBuddy.SDK.Events;
+
+    using GenesisSpellDatabase;
 
     using GenesisSpellLibrary;
 
-    using Modes;
-
-    using Positioning;
+    using Logics;
 
     using SharpDX;
 
@@ -48,6 +47,8 @@
             Obj_AI_Base.OnBasicAttack += Obj_AI_Base_OnBasicAttack;
             GameObject.OnCreate += ObjectsManager.GameObject_OnCreate;
             GameObject.OnDelete += ObjectsManager.GameObject_OnDelete;
+            Gapcloser.OnGapcloser += SpellsCasting.GapcloserOnOnGapcloser;
+            Interrupter.OnInterruptableSpell += SpellsCasting.Interrupter_OnInterruptableSpell;
         }
 
         /// <summary>
@@ -88,8 +89,8 @@
         /// </summary>
         public static bool Alone()
         {
-            return Player.Instance.CountAlliesInRange(2000) < 2 || Player.Instance.Path.Any(p => p.IsInRange(Game.CursorPos, 50))
-                   || EntityManager.Heroes.Allies.All(a => !a.IsMe && a.IsInShopRange());
+            return Player.Instance.CountAlliesInRange(4500) < 2 || Player.Instance.Path.Any(p => p.IsInRange(Game.CursorPos, 50))
+                   || EntityManager.Heroes.Allies.All(a => !a.IsMe && (a.IsInShopRange() || a.IsDead));
         }
 
         /// <summary>

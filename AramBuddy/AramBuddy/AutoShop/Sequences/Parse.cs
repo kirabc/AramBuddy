@@ -1,14 +1,13 @@
 ﻿#region
 
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 #endregion
 
 namespace AramBuddy.AutoShop.Sequences
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
     /// <summary>
     ///     A class containing all the methods needed for parsing JSON
     /// </summary>

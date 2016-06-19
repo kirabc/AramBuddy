@@ -127,7 +127,7 @@
                                                                  };
 
         /// <summary>
-        ///     Maxing W Sequence.
+        ///     Maxing W Champions.
         /// </summary>
         private static readonly List<string> MaxWChampions = new List<string>
                                                                  {
@@ -135,7 +135,7 @@
                                                                  };
 
         /// <summary>
-        ///     Maxing E Sequence.
+        ///     Maxing E Champions.
         /// </summary>
         private static readonly List<string> MaxEChampions = new List<string>
                                                                  {

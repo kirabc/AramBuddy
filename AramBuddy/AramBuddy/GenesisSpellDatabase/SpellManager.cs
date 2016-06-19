@@ -104,6 +104,23 @@
             }
         }
 
+        public static bool IsSaver(this Spell.SpellBase spell)
+        {
+            switch (spell.Slot)
+            {
+                case SpellSlot.Q:
+                    return SpellsDictionary.FirstOrDefault().Value.QisSaver;
+                case SpellSlot.W:
+                    return SpellsDictionary.FirstOrDefault().Value.WisSaver;
+                case SpellSlot.E:
+                    return SpellsDictionary.FirstOrDefault().Value.EisSaver;
+                case SpellSlot.R:
+                    return SpellsDictionary.FirstOrDefault().Value.RisSaver;
+                default:
+                    return false;
+            }
+        }
+
         public static void Initialize()
         {
             try

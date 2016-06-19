@@ -1,17 +1,14 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Linq;
+
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Events;
 
-#endregion
-
 namespace AramBuddy
 {
     /// <summary>
-    ///     A class containing all the globally used events in AutoAram
+    ///     A class containing all the globally used events in AutoBuddy
     /// </summary>
     internal static class Events
     {
@@ -34,40 +31,38 @@ namespace AramBuddy
             #region OnGameEnd
 
             // Variable used to make sure that the event invoke isn't spammed and is only called once
-            bool gameEndNotified = false;
+            var gameEndNotified = false;
 
             // Every time the game ticks (1ms)
             Game.OnTick += delegate
-            {
-                // Make sure we're not repeating the invoke
-                if (gameEndNotified)
                 {
-                    return;
-                }
+                    // Make sure we're not repeating the invoke
+                    if (gameEndNotified)
+                    {
+                        return;
+                    }
 
-                // Get the enemy nexus
-                var nexus =
-                    ObjectManager.Get<Obj_Building>()
-                                 .Where(b => b.Name.ToLower().Contains("nexus"));
+                    // Get the enemy nexus
+                    var nexus = ObjectManager.Get<Obj_HQ>();
 
-                // Check and return if the nexus is null
-                if (nexus == null)
-                {
-                    return;
-                }
+                    // Check and return if the nexus is null
+                    if (nexus == null)
+                    {
+                        return;
+                    }
 
-                // If the nexus is dead or its health is equal to 0
-                if (nexus.Any(n => n.IsDead) || nexus.Any(n => n.Health == 0.0f))
-                {
-                    // Invoke the event
-                    //OnGameEnd(EventArgs.Empty);
+                    // If the nexus is dead or its health is equal to 0
+                    if (nexus.Any(n => n.IsDead) || nexus.Any(n => n.Health == 0.0f))
+                    {
+                        // Invoke the event
+                        //OnGameEnd(EventArgs.Empty);
 
-                    // Set gameEndNotified to true, as the event has been completed
-                    gameEndNotified = true;
+                        // Set gameEndNotified to true, as the event has been completed
+                        gameEndNotified = true;
 
-                    Console.WriteLine("Game ended!");
-                }
-            };
+                        Console.WriteLine("Game ended!");
+                    }
+                };
 
             #endregion
 
@@ -77,14 +72,14 @@ namespace AramBuddy
 
             // When the player object is created
             Loading.OnLoadingComplete += delegate(EventArgs args)
-            {
-                if (Player.Instance.IsInShopRange())
                 {
-                    //OnGameStart(EventArgs.Empty);
+                    if (Player.Instance.IsInShopRange())
+                    {
+                        //OnGameStart(EventArgs.Empty);
 
-                    Console.WriteLine("Game started!");
-                }
-            };
+                        Console.WriteLine("Game started!");
+                    }
+                };
 
             #endregion
         }
@@ -95,7 +90,7 @@ namespace AramBuddy
         public static event OnGameEndHandler OnGameEnd;
 
         /// <summary>
-        ///     Fires when the game has started
+        /// Fires when the game has started
         /// </summary>
         public static event OnGameStartHandler OnGameStart;
     }

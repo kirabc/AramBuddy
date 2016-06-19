@@ -6,7 +6,7 @@
 //+ KarmaPanda, Bloodimir, Hellsing, iRaxe, plebsot, Chaos, 
 //+ zpitty and many others!
 //+
-//+ This spell database was last updated 6/16/2016
+//+ This spell database was last updated 6/19/2016
 //+ Created By Genesis.
 //======================================================================
 
@@ -72,6 +72,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 550);
             this.E = new Spell.Skillshot(SpellSlot.E, 950, SkillShotType.Linear, 250, 1550, 60) { AllowedCollisionCount = 0 };
             this.R = new Spell.Active(SpellSlot.R, 600);
+            this.EisCC = true;
             this.Options.Clear();
             this.Options.Add("EisCC", true);
             this.Options.Add("RisDash", true);
@@ -118,6 +119,7 @@ namespace GenesisSpellLibrary.Spells
             this.QisCC = true;
             this.WisDash = true;
             this.WisCC = true;
+            this.EisSaver = true;
             this.LogicDictionary = new Dictionary<string, Func<AIHeroClient, Obj_AI_Base, bool>>();
             this.LogicDictionary.Add("RLogic", RLogic);
         }
@@ -267,6 +269,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, int.MaxValue, SkillShotType.Linear, 250, 1000, 70);
             this.R = new Spell.Skillshot(SpellSlot.R, 3400, SkillShotType.Circular, 250, int.MaxValue, 650);
             this.QisCC = true;
+            this.WisSaver = true;
+            this.RisSaver = true;
             this.RisCC = true;
         }
     }
@@ -288,6 +292,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 150);
             this.R = new Spell.Active(SpellSlot.R, 550);
             this.QisCC = true;
+            this.WisSaver = true;
         }
     }
 
@@ -326,6 +331,9 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Targeted(SpellSlot.W, 650);
             this.E = new Spell.Skillshot(SpellSlot.E, 500, SkillShotType.Cone, 250, 2000, 250);
             this.R = new Spell.Skillshot(SpellSlot.R, 1300, SkillShotType.Linear, 250, 1300, 115) { AllowedCollisionCount = int.MaxValue };
+            this.QisCC = true;
+            this.WisSaver = true;
+            this.EisSaver = true;
             this.RisCC = true;
         }
     }
@@ -346,6 +354,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Skillshot(SpellSlot.W, 820, SkillShotType.Circular, 500, int.MaxValue, 80);
             this.E = new Spell.Skillshot(SpellSlot.E, 800, SkillShotType.Linear, 250, 1600, 80) { AllowedCollisionCount = 0 };
             this.R = new Spell.Targeted(SpellSlot.R, 2000);
+            this.EisDash = true;
         }
     }
 
@@ -386,6 +395,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E);
             this.R = new Spell.Targeted(SpellSlot.R, 500);
             this.QisCC = true;
+            this.WisCC = true;
         }
     }
 
@@ -406,6 +416,7 @@ namespace GenesisSpellLibrary.Spells
             //W2 = new Spell.Skillshot(SpellSlot.W, 1800, SkillShotType.Linear, 250, 1000, 70);
             this.E = new Spell.Active(SpellSlot.E, 600);
             this.R = new Spell.Skillshot(SpellSlot.R, 1300, SkillShotType.Linear, 200, 1950, 40) { AllowedCollisionCount = 0 };
+            this.EisDash = true;
         }
     }
 
@@ -425,6 +436,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 145);
             this.E = new Spell.Skillshot(SpellSlot.E, 540, SkillShotType.Cone, 250, 100, 120) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Targeted(SpellSlot.R, 460);
+            this.EisCC = true;
         }
     }
 
@@ -444,6 +456,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 350);
             this.E = new Spell.Active(SpellSlot.E, 200);
             this.R = new Spell.Targeted(SpellSlot.R, 825);
+            this.WisSaver = true;
             this.EisCC = true;
         }
     }
@@ -464,7 +477,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 162);
             this.E = new Spell.Active(SpellSlot.E);
             this.R = new Spell.Active(SpellSlot.R);
-            this.QisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -484,6 +497,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 1050, SkillShotType.Linear, 250, 1000, 70) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Skillshot(SpellSlot.R, 2000, SkillShotType.Linear, 250, 1000, 70) { AllowedCollisionCount = int.MaxValue };
+            this.WisSaver = true;
             this.EisCC = true;
         }
     }
@@ -505,6 +519,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 400, SkillShotType.Linear, 250, int.MaxValue, 1);
             this.R = new Spell.Active(SpellSlot.R, 400);
             this.WisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -539,6 +554,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Targeted(SpellSlot.E, 225);
             this.R = new Spell.Skillshot(SpellSlot.R, 900, SkillShotType.Circular, 250, 1200, 150);
+            this.WisSaver = true;
         }
     }
 
@@ -558,6 +574,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Skillshot(SpellSlot.W, 1050, SkillShotType.Linear, 250, 1600, 80) { AllowedCollisionCount = int.MaxValue };
             this.E = new Spell.Skillshot(SpellSlot.E, 475, SkillShotType.Linear, 250, 2000, 80) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Skillshot(SpellSlot.R, 5000, SkillShotType.Linear, 1000, 2000, 160) { AllowedCollisionCount = int.MaxValue };
+            this.EisDash = true;
         }
     }
 
@@ -578,6 +595,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 750);
             this.R = new Spell.Skillshot(SpellSlot.R, 800, SkillShotType.Circular, 1750, int.MaxValue, 600);
             this.QisCC = true;
+            this.EisCC = true;
         }
     }
 
@@ -597,6 +615,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Skillshot(SpellSlot.W, 750, SkillShotType.Linear, 500, 3200, 70) { AllowedCollisionCount = int.MaxValue };
             this.E = new Spell.Active(SpellSlot.E, 200);
             this.R = new Spell.Targeted(SpellSlot.R, 500);
+            this.WisCC = true;
+            this.WisSaver = true;
         }
     }
 
@@ -616,6 +636,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 400, SkillShotType.Circular, 250, int.MaxValue, 330);
             this.R = new Spell.Skillshot(SpellSlot.R, 1300, SkillShotType.Linear, 250, 1200, 80) { AllowedCollisionCount = 0 };
+            this.EisSaver = true;
             this.RisCC = true;
         }
     }
@@ -637,6 +658,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 1180, SkillShotType.Linear, 250, 1200, 140) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Active(SpellSlot.R, 560);
             this.QisCC = true;
+            this.WisSaver = true;
+            this.RisCC = true;
         }
     }
 
@@ -656,6 +679,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 1150, SkillShotType.Circular, 450, 2000, 390);
             this.R = new Spell.Skillshot(SpellSlot.R, int.MaxValue, SkillShotType.Circular, 250, int.MaxValue, 600);
+            this.WisSaver = true;
             this.RisCC = true;
         }
     }
@@ -692,6 +716,7 @@ namespace GenesisSpellLibrary.Spells
             E = new Spell.Skillshot(SpellSlot.E, 475, SkillShotType.Circular, 500, int.MaxValue, 150);
             R = new Spell.Skillshot(SpellSlot.R, 500, SkillShotType.Linear, 250, 1000, 200) { AllowedCollisionCount = int.MaxValue };
             this.QisCC = true;
+            this.EisDash = true;
             this.RisCC = true;
         }
     } // TODO: Same boat as Elise
@@ -712,6 +737,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 675, SkillShotType.Linear, 0, 1000, 50) { AllowedCollisionCount = 0 };
             this.R = new Spell.Skillshot(SpellSlot.R, 1100, SkillShotType.Circular, 1, 1000, 700);
+            this.EisDash = true;
             this.RisCC = true;
         }
     }
@@ -733,6 +759,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 425, SkillShotType.Linear, 500, 0, 50);
             this.R = new Spell.Skillshot(SpellSlot.R, 1000, SkillShotType.Linear, 500, 2100, 100) { AllowedCollisionCount = int.MaxValue };
             this.WisCC = true;
+            this.EisDash = true;
         }
     }
 
@@ -831,6 +858,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 800);
             this.R = new Spell.Active(SpellSlot.R, 725);
             this.QisCC = true;
+            this.EisSaver = true;
+            this.RisSaver = true;
             this.RisCC = true;
         }
     }
@@ -871,6 +900,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 187);
             this.R = new Spell.Active(SpellSlot.R);
             this.EisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -940,6 +970,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 1000);
             this.R = new Spell.Active(SpellSlot.R, 1500); //You are gonna suck until you get logic
             this.RisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -961,6 +992,7 @@ namespace GenesisSpellLibrary.Spells
             this.R = new Spell.Active(SpellSlot.R);
             this.QisCC = true;
             this.WisCC = true;
+            this.EisSaver = true;
         }
     }
 
@@ -1040,6 +1072,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 650, SkillShotType.Circular, 1, 50, 400);
             this.R = new Spell.Targeted(SpellSlot.R, 900);
             this.QisCC = true;
+            this.WisSaver = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1099,6 +1133,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 500);
             this.R = new Spell.Active(SpellSlot.R, 500);
             this.EisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1160,6 +1195,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 350, SkillShotType.Linear, 250, 2500, 100);
             //E2 = new Spell.Skillshot(SpellSlot.E, 675, SkillShotType.Linear, 250, 2500, 100)
             this.R = new Spell.Targeted(SpellSlot.R, 375);
+            this.WisSaver = true;
             this.RisCC = true;
         }
     }
@@ -1243,6 +1279,9 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 650);
             this.R = new Spell.Targeted(SpellSlot.R, 900);
             this.QisCC = true;
+            this.WisCC = true;
+            this.EisSaver = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1263,6 +1302,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 1050, SkillShotType.Circular, 250, 1300, 330);
             this.R = new Spell.Skillshot(SpellSlot.R, 3200, SkillShotType.Circular, 500, int.MaxValue, 160) { AllowedCollisionCount = int.MaxValue };
             this.QisCC = true;
+            this.WisSaver = true;
         }
     }
 
@@ -1283,6 +1323,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 400);
             this.R = new Spell.Skillshot(SpellSlot.R, 1000, SkillShotType.Circular, 250, 700, 270);
             this.QisCC = true;
+            this.RisCC = true;
         }
     }
 
@@ -1303,6 +1344,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 650);
             this.R = new Spell.Targeted(SpellSlot.R, 700);
             this.QisCC = true;
+            this.RisCC = true;
         }
     }
 
@@ -1342,6 +1384,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Active(SpellSlot.E);
             this.R = new Spell.Active(SpellSlot.R);
+            this.WisSaver = true;
         }
     }
 
@@ -1401,6 +1444,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 750);
             this.R = new Spell.Active(SpellSlot.R, 600);
             this.QisCC = true;
+            this.EisSaver = true;
+            this.RisCC = true;
         }
     }
 
@@ -1421,6 +1466,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 800);
             this.R = new Spell.Skillshot(SpellSlot.R, 2750, SkillShotType.Linear, 250, 500, 160) { AllowedCollisionCount = int.MaxValue };
             this.QisCC = true;
+            this.WisSaver = true;
             this.RisCC = true;
         }
     }
@@ -1442,6 +1488,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 650, SkillShotType.Circular, 250, 190, int.MaxValue);
             this.R = new Spell.Active(SpellSlot.R);
             this.WisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1461,6 +1508,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Active(SpellSlot.E, (uint)ObjectManager.Player.Spellbook.GetSpell(SpellSlot.E).SData.CastRange);
             this.R = new Spell.Targeted(SpellSlot.R, (uint)ObjectManager.Player.Spellbook.GetSpell(SpellSlot.R).SData.CastRange);
+            this.QisCC = true;
+            this.WisSaver = true;
             this.EisCC = true;
             this.RisCC = true;
         }
@@ -1477,6 +1526,7 @@ namespace GenesisSpellLibrary.Spells
             Q = new Spell.Skillshot(SpellSlot.Q, 1150, SkillShotType.Linear, 250, 1000, 70) { AllowedCollisionCount = int.MaxValue };
             W = new Spell.Skillshot(SpellSlot.W, 700, SkillShotType.Circular);
             E = new Spell.Targeted(SpellSlot.E, 325);
+            this.EisSaver = true;
         }
     }
 
@@ -1497,6 +1547,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 425);
             this.R = new Spell.Active(SpellSlot.R, 2500);
             // R1 = new Spell.Targeted(SpellSlot.R, R.Range);
+            this.WisSaver = true;
         }
     }
 
@@ -1555,6 +1606,7 @@ namespace GenesisSpellLibrary.Spells
                 this.W = new Spell.Active(SpellSlot.W);
                 this.E = new Spell.Targeted(SpellSlot.E, 325);
                 this.R = new Spell.Active(SpellSlot.R);
+                this.EisSaver = true;
             }
         }
     }
@@ -1575,6 +1627,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Targeted(SpellSlot.W, 600);
             this.E = new Spell.Skillshot(SpellSlot.E, 600, SkillShotType.Cone, 250, 2000, 70) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Skillshot(SpellSlot.R, 2000, SkillShotType.Circular);
+            this.WisCC = true;
         }
     }
 
@@ -1594,6 +1647,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 400);
             this.E = new Spell.Targeted(SpellSlot.E, 525);
             this.R = new Spell.Chargeable(SpellSlot.R, 500, 1200, 4000, 250, int.MaxValue, 90) { AllowedCollisionCount = int.MaxValue };
+            this.EisCC = true;
             this.RisCC = true;
         }
     }
@@ -1614,6 +1668,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 2100);
             this.E = new Spell.Targeted(SpellSlot.E, 675);
             this.R = new Spell.Active(SpellSlot.R);
+            this.EisCC = true;
         }
     }
 
@@ -1633,6 +1688,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Targeted(SpellSlot.E, 325);
             this.R = new Spell.Active(SpellSlot.R, 300);
+            this.EisCC = true;
         }
     }
 
@@ -1672,6 +1728,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 450, SkillShotType.Linear, 250, 1000, 70) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Active(SpellSlot.R);
             this.WisCC = true;
+            this.EisDash = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1731,6 +1789,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 840, SkillShotType.Linear, 250, 2000, 70) { AllowedCollisionCount = 0 };
             this.R = new Spell.Skillshot(SpellSlot.R, 1700, SkillShotType.Linear, 400, 2500, 120) { AllowedCollisionCount = int.MaxValue };
+            this.WisSaver = true;
             this.EisCC = true;
         }
     }
@@ -1772,6 +1831,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 350);
             this.E = new Spell.Active(SpellSlot.E, 1000);
             this.R = new Spell.Skillshot(SpellSlot.R, 1175, SkillShotType.Linear, 250, 1600, 110) { AllowedCollisionCount = int.MaxValue };
+            this.QisDash = true;
             this.RisCC = true;
         }
     }
@@ -1794,6 +1854,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 625);
             this.R = new Spell.Active(SpellSlot.R, 200);
             this.EisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1813,6 +1874,10 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 610, SkillShotType.Linear, 500, 1600, 50) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Targeted(SpellSlot.R, 31000);
+            this.WisSaver = true;
+            this.EisCC = true;
+            this.EisDash = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1832,6 +1897,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 425);
             this.E = new Spell.Skillshot(SpellSlot.E, 925, SkillShotType.Linear, 250, 1500, 60) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Skillshot(SpellSlot.R, 1000, SkillShotType.Linear, 250, 1500, 150) { AllowedCollisionCount = int.MaxValue };
+            this.RisCC = true;
+            this.RisDash = true;
         }
     }
 
@@ -1853,6 +1920,7 @@ namespace GenesisSpellLibrary.Spells
             this.R = new Spell.Active(SpellSlot.R);
             this.EisCC = true;
             this.WisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1875,6 +1943,7 @@ namespace GenesisSpellLibrary.Spells
             this.R = new Spell.Active(SpellSlot.R, 800);
             this.QisCC = true;
             this.EisCC = true;
+            this.RisCC = true;
         }
     }
 
@@ -1894,6 +1963,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Active(SpellSlot.E);
             this.R = new Spell.Active(SpellSlot.R, 1000);
+            this.EisSaver = true;
+            this.RisSaver = true;
         }
     }
 
@@ -1914,6 +1985,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 325);
             this.R = new Spell.Targeted(SpellSlot.R, 700);
             this.WisCC = true;
+            this.RisCC = true;
         }
     }
 
@@ -1933,6 +2005,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 1000);
             this.E = new Spell.Active(SpellSlot.E, 350);
             this.R = new Spell.Skillshot(SpellSlot.R, 1000, SkillShotType.Circular, 250, 2400, 140) { AllowedCollisionCount = int.MaxValue };
+            this.WisSaver = true;
             this.RisCC = true;
         }
     }
@@ -1954,7 +2027,9 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 925, SkillShotType.Circular, (int)0.5f, 1750, (int)70f);
             this.R = new Spell.Active(SpellSlot.R);
             this.QisCC = true;
+            this.WisSaver = true;
             this.EisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -2016,6 +2091,8 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 325);
             this.R = new Spell.Targeted(SpellSlot.R, 700);
             this.QisCC = true;
+            this.WisSaver = true;
+            this.EisSaver = true;
         }
     }
 
@@ -2056,6 +2133,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 625);
             this.R = new Spell.Active(SpellSlot.R, 400);
             this.QisCC = true;
+            this.RisSaver = true;
         }
     }
 
@@ -2075,6 +2153,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Active(SpellSlot.E);
             this.R = new Spell.Skillshot(SpellSlot.R, 300, SkillShotType.Circular, 500, 1000, 120);
+            this.QisCC = true;
             this.RisCC = true;
         }
     }
@@ -2096,6 +2175,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Skillshot(SpellSlot.E, 480, SkillShotType.Linear, 0, 2000, 110) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Active(SpellSlot.R, 450);
             this.QisCC = true;
+            this.WisSaver = true;
             this.EisCC = true;
             this.RisCC = true;
         }
@@ -2117,6 +2197,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Skillshot(SpellSlot.W, 900, SkillShotType.Circular, 450, int.MaxValue, 180);
             this.E = new Spell.Targeted(SpellSlot.E, 550);
             this.R = new Spell.Targeted(SpellSlot.R, 550);
+            this.WisDash = true;
             this.RisCC = true;
         }
     }
@@ -2157,7 +2238,10 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 400);
             this.E = new Spell.Skillshot(SpellSlot.E, 660, SkillShotType.Linear, 250, 700, (int)92.5) { AllowedCollisionCount = int.MaxValue };
             this.R = new Spell.Active(SpellSlot.R);
+            this.QisSaver = true;
             this.WisCC = true;
+            this.EisDash = true;
+            this.RisSaver = true;
         }
     }
 
@@ -2217,6 +2301,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 250);
             this.E = new Spell.Active(SpellSlot.E, 250);
             this.R = new Spell.Active(SpellSlot.R, 500);
+            this.WisSaver = true;
+            this.EisCC = true;
         }
     }
 
@@ -2237,6 +2323,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Skillshot(SpellSlot.E, 900, SkillShotType.Circular, 250, 1500, 210);
             this.R = new Spell.Targeted(SpellSlot.R, 850);
+            this.WisSaver = true;
+            this.RisCC = true;
         }
     }
 
@@ -2345,6 +2433,9 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Active(SpellSlot.E, 600);
             //E2 = new Spell.Skillshot(SpellSlot.E, 600, SkillShotType.Cone);
             this.R = new Spell.Targeted(SpellSlot.R, 800);
+            this.QisCC = true;
+            this.QisDash = true;
+            this.RisCC = true;
         }
     }
 
@@ -2384,6 +2475,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 150);
             this.E = new Spell.Active(SpellSlot.E, 600);
             this.R = new Spell.Skillshot(SpellSlot.R, 750, SkillShotType.Circular, 250, int.MaxValue, 170);
+            this.WisSaver = true;
         }
     }
 
@@ -2423,6 +2515,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W, 1250);
             this.E = new Spell.Active(SpellSlot.E, 1500);
             this.R = new Spell.Targeted(SpellSlot.R, 700);
+            this.RisCC = true;
         }
     }
 
@@ -2502,6 +2595,8 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Skillshot(SpellSlot.W, 400, SkillShotType.Linear, 250, 1000, 70) { AllowedCollisionCount = int.MaxValue };
             this.E = new Spell.Targeted(SpellSlot.E, 475);
             this.R = new Spell.Active(SpellSlot.R, 1200);
+            this.QisCC = true;
+            this.WisSaver = true;
         }
     }
 
@@ -2521,6 +2616,7 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Skillshot(SpellSlot.W, 585, SkillShotType.Circular, 250, int.MaxValue, 200);
             this.E = new Spell.Targeted(SpellSlot.E, 540);
             this.R = new Spell.Targeted(SpellSlot.R, 835);
+            this.RisSaver = true;
         }
     }
 
@@ -2541,6 +2637,9 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Chargeable(SpellSlot.E, 0, 1750, 1500, 500, 1500, 250);
             this.R = new Spell.Active(SpellSlot.R, 300);
             this.QisCC = true;
+            this.EisCC = true;
+            this.EisDash = true;
+            this.RisCC = true;
         }
     }
 
@@ -2601,6 +2700,7 @@ namespace GenesisSpellLibrary.Spells
             this.E = new Spell.Targeted(SpellSlot.E, 1000);
             this.R = new Spell.Targeted(SpellSlot.R, 410);
             this.QisCC = true;
+            this.RisSaver = true;
         }
     }
 

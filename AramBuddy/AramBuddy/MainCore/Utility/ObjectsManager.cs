@@ -6,7 +6,6 @@
 
     using EloBuddy;
     using EloBuddy.SDK;
-    using EloBuddy.SDK.Menu.Values;
 
     internal class ObjectsManager
     {
@@ -48,10 +47,7 @@
         /// <summary>
         ///     Traps Names.
         /// </summary>
-        public static List<string> TrapsNames = new List<string>()
-                                                    {
-                                                        "Cupcake Trap", "Noxious Trap", "Jack In The Box"
-                                                    };
+        public static List<string> TrapsNames = new List<string>() { "Cupcake Trap", "Noxious Trap", "Jack In The Box" };
 
         /// <summary>
         ///     HealthRelics list.
@@ -84,11 +80,15 @@
             get
             {
                 return
-                    EntityManager.Heroes.Allies.OrderByDescending(a => a.Distance(AllyNexues))
+                    EntityManager.Heroes.Allies.OrderByDescending(a => Misc.TeamTotal(a.ServerPosition))
+                        .ThenByDescending(a => a.Distance(AllyNexues))
                         .Where(
                             a =>
-                            a.IsValidTarget() && ((a.IsUnderEnemyturret() && Misc.SafeToDive) || !a.IsUnderEnemyturret()) && a.CountAlliesInRange(1250) > 1 && a.HealthPercent > 15 && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe
-                            && (a.IsMoving || a.Spellbook.IsCharging || a.Spellbook.IsChanneling || a.Spellbook.IsAutoAttacking || a.IsAttackingPlayer || a.Spellbook.IsCastingSpell));
+                            a.IsValidTarget()
+                            && ((a.IsUnderEnemyturret() && Misc.SafeToDive) || !a.IsUnderEnemyturret()) && a.CountAlliesInRange(1250) > 1
+                            && a.HealthPercent > 15 && !a.IsInShopRange() && !a.IsDead && !a.IsZombie && !a.IsMe
+                            && (a.Spellbook.IsCharging || a.Spellbook.IsChanneling || a.Spellbook.IsAutoAttacking || a.IsAttackingPlayer
+                                || a.Spellbook.IsCastingSpell || a.Path.LastOrDefault().Distance(a) > 50 || EntityManager.Heroes.Enemies.Any(e => e.IsValidTarget() && e.IsInRange(a, Player.Instance.GetAutoAttackRange()))));
             }
         }
 
@@ -138,7 +138,7 @@
             {
                 return
                     HealthRelics.OrderBy(e => e.Distance(Player.Instance))
-                        .FirstOrDefault(e => e.IsValid && e.Distance(Player.Instance) < 1000 && e.CountEnemiesInRange(800) < 1);
+                        .FirstOrDefault(e => e.IsValid && e.Distance(Player.Instance) < 2000 && e.CountEnemiesInRange(1100) < 1);
             }
         }
 
@@ -150,7 +150,12 @@
             get
             {
                 return
-                    EntityManager.MinionsAndMonsters.AlliedMinions.OrderByDescending(a => a.Distance(AllyNexues)).FirstOrDefault(m => m.CountEnemiesInRange(1250) < 2 && ((m.IsUnderEnemyturret() && Misc.SafeToDive) || !m.IsUnderEnemyturret()) && m.IsValidTarget(2500) && m.IsValid && m.IsHPBarRendered && !m.IsDead && !m.IsZombie && m.HealthPercent > 25 && Misc.TeamTotal(m.ServerPosition) - Misc.TeamTotal(m.ServerPosition, true) >= 0);
+                    EntityManager.MinionsAndMonsters.AlliedMinions.OrderByDescending(a => a.Distance(AllyNexues))
+                        .FirstOrDefault(
+                            m =>
+                            m.CountAlliesInRange(1250) - m.CountEnemiesInRange(1250) >= 0 && ((m.IsUnderEnemyturret() && Misc.SafeToDive) || !m.IsUnderEnemyturret())
+                            && m.IsValidTarget(2500) && m.IsValid && m.IsHPBarRendered && !m.IsDead && !m.IsZombie && m.HealthPercent > 25
+                            && Misc.TeamTotal(m.ServerPosition) - Misc.TeamTotal(m.ServerPosition, true) >= 0);
             }
         }
 

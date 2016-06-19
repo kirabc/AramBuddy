@@ -1,13 +1,12 @@
 ﻿#region
 
 using System;
+using EloBuddy;
 
 #endregion
 
 namespace AramBuddy.AutoShop
 {
-    using EloBuddy;
-
     /// <summary>
     ///     The class where events are invoked, defined and tested
     /// </summary>

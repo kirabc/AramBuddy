@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AramBuddy.AutoShop.Sequences;
+using EloBuddy;
 
 #endregion
 
 namespace AramBuddy.AutoShop
 {
-    using EloBuddy;
-
     /// <summary>
     ///     The class where AutoShop is set-up
     /// </summary>
