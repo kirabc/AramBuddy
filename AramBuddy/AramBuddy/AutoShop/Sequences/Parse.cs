@@ -6,6 +6,9 @@ using System;
 
 namespace AramBuddy.AutoShop.Sequences
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+
     /// <summary>
     ///     A class containing all the methods needed for parsing JSON
     /// </summary>
@@ -39,7 +42,7 @@ namespace AramBuddy.AutoShop.Sequences
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred in AutoShop on JSON parse:" + Environment.NewLine);
                 Console.ResetColor();
                 Console.Write(ex);
@@ -47,7 +50,7 @@ namespace AramBuddy.AutoShop.Sequences
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    DateTime.Now.ToString("[hh:mm:ss - ") +
+                    DateTime.Now.ToString("[H:mm:ss - ") +
                     "AramBuddy Warning] Exception occurred during AutoShop JSON parse. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
                 build = null;

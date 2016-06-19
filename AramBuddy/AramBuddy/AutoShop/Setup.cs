@@ -10,6 +10,8 @@ using AramBuddy.AutoShop.Sequences;
 
 namespace AramBuddy.AutoShop
 {
+    using EloBuddy;
+
     /// <summary>
     ///     The class where AutoShop is set-up
     /// </summary>
@@ -74,7 +76,7 @@ namespace AramBuddy.AutoShop
                 {
                     // If not, warn the user
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                       "AramBuddy Warning] There are no builds for your champion.");
                     Console.WriteLine("AramBuddy Warning] No build is currently used!");
                     Console.ResetColor();
@@ -90,7 +92,7 @@ namespace AramBuddy.AutoShop
                 {
                     // If the parse is successful, notify the user that the initialization process is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                       "AramBuddy Info] AutoShop has been fully and succesfully initialized!");
                     Console.ResetColor();
 
@@ -101,12 +103,12 @@ namespace AramBuddy.AutoShop
                 {
                     // An error occured during parsing. Catch the error and print it in the console
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                       "AramBuddy Error] The selected AutoShop JSON could not be parsed.");
                     Console.ResetColor();
 
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                       "AramBuddy Warning] No build is currently used!");
                     Console.ResetColor();
                 }
@@ -115,7 +117,7 @@ namespace AramBuddy.AutoShop
             {
                 // An exception occured somewhere else. Notify the user of the error, and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString(Environment.NewLine + "[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred on initialization of AutoShop:");
                 Console.ResetColor();
                 Console.Write(ex);
@@ -177,7 +179,7 @@ namespace AramBuddy.AutoShop
         {
             // Notify the user that the build has been reset
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Build has been reset!");
+            Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Info] Build has been reset!");
             Console.ResetColor();
 
             // Reset the build index, restarting the build process from the start
@@ -192,7 +194,7 @@ namespace AramBuddy.AutoShop
         {
             // Notify the user that we are going to try to buy items now
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Can buy items");
+            Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Info] Can buy items");
             Console.ResetColor();
 
             // Attempt to buy as many consecutive items on the build as we can

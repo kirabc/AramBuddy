@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace AramBuddy.AutoShop.Sequences
 {
+    using EloBuddy;
+    using EloBuddy.SDK;
+
     internal class Buy
     {
         /// <summary>
@@ -25,7 +28,7 @@ namespace AramBuddy.AutoShop.Sequences
                 {
                     // Notify the user that the build is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                       "AramBuddy Info] Build is finished - Cannot buy any more items!");
                     Console.ResetColor();
 
@@ -50,7 +53,7 @@ namespace AramBuddy.AutoShop.Sequences
 
                     // Notify the user that the item has been bought and of the value of the item
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") + "AramBuddy Info] Item bought: " +
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Info] Item bought: " +
                                       item.Value.Name + " - Item Value: " + item.Value.Gold.Total);
                     Console.ResetColor();
 
@@ -68,7 +71,7 @@ namespace AramBuddy.AutoShop.Sequences
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred in AutoShop on buying the next item:" +
                                   Environment.NewLine);
                 Console.ResetColor();
@@ -77,7 +80,7 @@ namespace AramBuddy.AutoShop.Sequences
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    DateTime.Now.ToString("[hh:mm:ss - ") +
+                    DateTime.Now.ToString("[H:mm:ss - ") +
                     "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
                 return false;
@@ -113,7 +116,7 @@ namespace AramBuddy.AutoShop.Sequences
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred in AutoShop on creating build index file:" +
                                   Environment.NewLine);
                 Console.ResetColor();
@@ -122,7 +125,7 @@ namespace AramBuddy.AutoShop.Sequences
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    DateTime.Now.ToString("[hh:mm:ss - ") +
+                    DateTime.Now.ToString("[H:mm:ss - ") +
                     "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
@@ -158,7 +161,7 @@ namespace AramBuddy.AutoShop.Sequences
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred in AutoShop on increment build index:" +
                                   Environment.NewLine);
                 Console.ResetColor();
@@ -167,7 +170,7 @@ namespace AramBuddy.AutoShop.Sequences
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    DateTime.Now.ToString("[hh:mm:ss - ") +
+                    DateTime.Now.ToString("[H:mm:ss - ") +
                     "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
@@ -191,7 +194,7 @@ namespace AramBuddy.AutoShop.Sequences
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred in AutoShop on get build index:" +
                                   Environment.NewLine);
                 Console.ResetColor();
@@ -200,7 +203,7 @@ namespace AramBuddy.AutoShop.Sequences
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    DateTime.Now.ToString("[hh:mm:ss - ") +
+                    DateTime.Now.ToString("[H:mm:ss - ") +
                     "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
                 return 0;
@@ -237,7 +240,7 @@ namespace AramBuddy.AutoShop.Sequences
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[hh:mm:ss - ") +
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
                                   "AramBuddy Error] Exception occurred in AutoShop reset build index:" +
                                   Environment.NewLine);
                 Console.ResetColor();
@@ -246,7 +249,7 @@ namespace AramBuddy.AutoShop.Sequences
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine(
-                    DateTime.Now.ToString("[hh:mm:ss - ") +
+                    DateTime.Now.ToString("[H:mm:ss - ") +
                     "AramBuddy Warning] Exception occurred during AutoShop buy sequence. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
