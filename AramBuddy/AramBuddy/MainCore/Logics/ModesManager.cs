@@ -74,7 +74,7 @@
         {
             foreach (var spell in Spelllist.Where(s => s.IsReady() && !s.IsSaver()))
             {
-                if (Combo || (Harass && Player.Instance.ManaPercent > 60))
+                if (Combo || (Harass && (Player.Instance.ManaPercent > 60 || Player.Instance.ManaPercent.Equals(0))))
                 {
                     SpellsCasting.Casting(spell, TargetSelector.GetTarget(spell.Range, DamageType.Mixed));
                 }
@@ -83,10 +83,8 @@
                     if (LaneClear)
                     {
                         var spell1 = spell;
-                        foreach (
-                            var minion in
-                                EntityManager.MinionsAndMonsters.EnemyMinions.Where(
-                                    m => m.IsValidTarget(spell1.Range) && Player.Instance.ManaPercent > 60))
+                        foreach (var minion in EntityManager.MinionsAndMonsters.EnemyMinions.Where(
+                            m => m.IsValidTarget(spell1.Range) && (Player.Instance.ManaPercent > 60 || Player.Instance.ManaPercent.Equals(0))))
                         {
                             SpellsCasting.Casting(spell, minion);
                         }

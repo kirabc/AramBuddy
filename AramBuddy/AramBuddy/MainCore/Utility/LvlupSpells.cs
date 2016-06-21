@@ -112,18 +112,18 @@
                                                                  {
                                                                      "Ahri", "Akali", "Alistar", "Amumu", "Annie", "Ashe", "Azir", "Blitzcrank", "Bard",
                                                                      "Braum", "Caitlyn", "Cassiopeia", "Cho'Gath", "Corki", "Darius", "Diana",
-                                                                     "Dr. Mundo", "Draven", "Elise", "Ekko", "Evelynn", "Ezreal", "Fiora", "Fizz",
+                                                                     "DrMundo", "Draven", "Elise", "Ekko", "Evelynn", "Ezreal", "Fiora", "Fizz",
                                                                      "Galio", "Gangplank", "Gnar", "Gragas", "Hecarim", "Heimerdinger", "Illaoi",
-                                                                     "Irelia", "Janna", "Jarvan IV", "Jax", "Jayce", "Jhin", "Jinx", "Karma", "Karthus",
-                                                                     "Kassadin", "Katarina", "Kennen", "Kha'Zix", "Kindred", "LeBlanc", "Lee Sin",
-                                                                     "Leona", "Lissandra", "Lucian", "Lulu", "Malphite", "Malzahar", "Master Yi",
-                                                                     "Miss Fortune", "Morgana", "Nami", "Nautilus", "Nidalee", "Nocturne", "Olaf",
-                                                                     "Orianna", "Pantheon", "Poppy", "Quinn", "Rammus", "Rek'Sai", "Renekton", "Rengar",
+                                                                     "Irelia", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Karma", "Karthus",
+                                                                     "Kassadin", "Katarina", "Kennen", "KhaZix", "Kindred", "LeBlanc", "LeeSin",
+                                                                     "Leona", "Lissandra", "Lucian", "Lulu", "Malphite", "Malzahar", "MasterYi",
+                                                                     "MissFortune", "Morgana", "Nami", "Nautilus", "Nidalee", "Nocturne", "Olaf",
+                                                                     "Orianna", "Pantheon", "Poppy", "Quinn", "Rammus", "RekSai", "Renekton", "Rengar",
                                                                      "Riven", "Rumble", "Ryze", "Sejuani", "Shen", "Singed", "Sion", "Sivir", "Skarner",
-                                                                     "Sona", "Soraka", "Swain", "Syndra", "Tahm Kench", "Taliyah", "Taric", "Teemo",
-                                                                     "Thresh", "Tristana", "Trundle", "Tryndamere", "Twisted Fate", "Udyr", "Urgot",
-                                                                     "Varus", "Veigar", "Vi", "Vladimir", "Vel'Koz", "Warwick", "Wukong", "Xerath",
-                                                                     "Xin Zhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zyra"
+                                                                     "Sona", "Soraka", "Swain", "Syndra", "TahmKench", "Taliyah", "Taric", "Teemo",
+                                                                     "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Udyr", "Urgot",
+                                                                     "Varus", "Veigar", "Vi", "Vladimir", "VelKoz", "Warwick", "Wukong", "Xerath",
+                                                                     "XinZhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zyra"
                                                                  };
 
         /// <summary>
@@ -131,7 +131,7 @@
         /// </summary>
         private static readonly List<string> MaxWChampions = new List<string>
                                                                  {
-                                                                     "Aurelion Sol", "Brand", "Kog'Maw", "Malzahar", "Talon", "Vayne", "Volibear" 
+                                                                     "AurelionSol", "Brand", "KogMaw", "Malzahar", "Talon", "Vayne", "Volibear" 
                                                                  };
 
         /// <summary>

@@ -4,13 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 using AramBuddy.AutoShop.Sequences;
+
 using EloBuddy;
 
 #endregion
 
 namespace AramBuddy.AutoShop
 {
+    using EloBuddy.SDK;
+
     /// <summary>
     ///     The class where AutoShop is set-up
     /// </summary>
@@ -19,14 +23,13 @@ namespace AramBuddy.AutoShop
         /// <summary>
         ///     Path to the build folder, containing all the champion builds
         /// </summary>
-        public static readonly string BuildPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                  "\\EloBuddy\\AramBuddy\\Builds";
+        public static readonly string BuildPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+                                                  + "\\EloBuddy\\AramBuddy\\Builds";
 
         /// <summary>
         ///     Path to the temporary folder which contains the in-game cache
         /// </summary>
-        public static readonly string TempPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                 "\\EloBuddy\\AramBuddy\\temp";
+        public static readonly string TempPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\EloBuddy\\AramBuddy\\temp";
 
         /// <summary>
         ///     A Dictionary that contains all the builds detected
@@ -54,7 +57,7 @@ namespace AramBuddy.AutoShop
                 Directory.CreateDirectory(BuildPath);
 
                 // Check if the index file exists
-                if (!File.Exists(TempPath + "\\buildindex.dat"))
+                if (!File.Exists(TempPath + "\\buildindex" + Player.Instance.NetworkId + ".dat"))
                 {
                     // If not, create the index file
                     Buy.CreateIndexFile();
@@ -71,60 +74,88 @@ namespace AramBuddy.AutoShop
                 }
 
                 // Check if there are any builds for our champion
-                if (!Builds.Keys.Any(b => b == Player.Instance.ChampionName))
+                if (Builds.Keys.All(b => b != Player.Instance.ChampionName))
                 {
                     // If not, warn the user
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
-                                      "AramBuddy Warning] There are no builds for your champion.");
-                    Console.WriteLine("AramBuddy Warning] No build is currently used!");
-                    Console.ResetColor();
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Warning] There are no builds for your champion.");
 
-                    // and terminate the AutoShop
-                    return;
+                    // and Use Default build
+                    if (Builds.Keys.Any(b => b.Equals(Build.BuildName())))
+                    {
+                        Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Warning] Using default build path!");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        // Creates Default Build for the AutoShop
+                        Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Warning] Creating default build path!");
+                        Build.Create();
+                        Console.ResetColor();
+                    }
                 }
+
                 // Check if the parse of the build for the champion completed successfully and output it to public
                 // variable CurrentChampionBuild
-                if (
-                    Builds.FirstOrDefault(b => b.Key == Player.Instance.ChampionName)
-                          .Value.TryParseData(out CurrentChampionBuild))
+                if (Builds.Any(b => b.Key == Player.Instance.ChampionName)
+                    && Builds.FirstOrDefault(b => b.Key == Player.Instance.ChampionName).Value.TryParseData(out CurrentChampionBuild))
                 {
                     // If the parse is successful, notify the user that the initialization process is finished
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
-                                      "AramBuddy Info] AutoShop has been fully and succesfully initialized!");
-                    Console.ResetColor();
+                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Info] AutoShop has been fully and succesfully initialized!");
 
                     // and set up event listeners
                     SetUpEventListeners();
+                    Console.ResetColor();
                 }
                 else
                 {
-                    // An error occured during parsing. Catch the error and print it in the console
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
-                                      "AramBuddy Error] The selected AutoShop JSON could not be parsed.");
-                    Console.ResetColor();
+                    Core.DelayAction(
+                        () =>
+                        {
+                            // Use Default build
+                            if (Builds.Keys.Any(b => b.Equals(Build.BuildName()))
+                                && Builds.FirstOrDefault(b => b.Key.Equals(Build.BuildName())).Value.TryParseData(out CurrentChampionBuild))
+                            {
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Info] " + Build.BuildName() + " build Loaded!");
+                                Console.ResetColor();
 
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
-                                      "AramBuddy Warning] No build is currently used!");
-                    Console.ResetColor();
+                                // and set up event listeners
+                                SetUpEventListeners();
+                                if (Player.Instance.IsInShopRange())
+                                {
+                                    Buy.BuyNextItem(CurrentChampionBuild);
+                                }
+                            }
+                            else
+                            {
+                                // An error occured during parsing. Catch the error and print it in the console
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Error] The selected AutoShop JSON could not be parsed.");
+                                Console.ResetColor();
+
+                                Console.ForegroundColor = ConsoleColor.Magenta;
+                                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Warning] No build is currently used!");
+                                Console.ResetColor();
+                            }
+                        }, 9000);
                 }
             }
             catch (Exception ex)
             {
                 // An exception occured somewhere else. Notify the user of the error, and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") +
-                                  "AramBuddy Error] Exception occurred on initialization of AutoShop:");
+                Console.WriteLine(
+                    DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") + "AramBuddy Error] Exception occurred on initialization of AutoShop:");
                 Console.ResetColor();
                 Console.Write(ex);
 
                 // Warn the user about the exception
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine(DateTime.Now.ToString("hh:mm:ss - ") +
-                                  "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
+                Console.WriteLine(
+                    DateTime.Now.ToString("H:mm:ss - ")
+                    + "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
         }
@@ -151,9 +182,9 @@ namespace AramBuddy.AutoShop
         private static void Events_OnGameStart(EventArgs args)
         {
             // Delete the index file if it exists
-            if (File.Exists(TempPath + "\\buildindex.dat"))
+            if (File.Exists(TempPath + "\\buildindex" + Player.Instance.NetworkId + ".dat"))
             {
-                File.Delete(TempPath + "\\buildindex.dat");
+                File.Delete(TempPath + "\\buildindex" + Player.Instance.NetworkId + ".dat");
             }
         }
 
@@ -164,9 +195,9 @@ namespace AramBuddy.AutoShop
         private static void Events_OnGameEnd(EventArgs args)
         {
             // Delete the index file if it exists
-            if (File.Exists(TempPath + "\\buildindex.dat"))
+            if (File.Exists(TempPath + "\\buildindex" + Player.Instance.NetworkId + ".dat"))
             {
-                File.Delete(TempPath + "\\buildindex.dat");
+                File.Delete(TempPath + "\\buildindex" + Player.Instance.NetworkId + ".dat");
             }
         }
 

@@ -8,8 +8,6 @@
 
     using GenesisSpellLibrary;
 
-    using SharpDX;
-
     class SpellsCasting
     {
         /// <summary>
@@ -111,6 +109,9 @@
             }
         }
 
+        /// <summary>
+        ///     Obj_AI_Base_OnProcessSpellCast event, used to detect incoming spells.
+        /// </summary>
         public static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!(args.Target is AIHeroClient) || !sender.IsEnemy)
@@ -142,13 +143,13 @@
                     }
                 }
 
-                if (target != null)
+                if (target != null && target.IsValidTarget(spell.Range) && target.IsAlly)
                 {
                     var spelldamage = enemy.GetSpellDamage(target, args.Slot);
                     var damagepercent = (spelldamage / target.Health) * 100;
                     var death = damagepercent >= target.HealthPercent || spelldamage >= target.Health || caster.GetAutoAttackDamage(target, true) >= target.Health;
 
-                    if (death || damagepercent >= 40)
+                    if (death || damagepercent >= 10)
                     {
                         Casting(spell, target);
                     }
@@ -156,6 +157,9 @@
             }
         }
 
+        /// <summary>
+        ///     Obj_AI_Base_OnBasicAttack event, used to detect incoming autoattacks.
+        /// </summary>
         public static void Obj_AI_Base_OnBasicAttack(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!(args.Target is AIHeroClient))
@@ -176,7 +180,7 @@
                 var aaprecent = (caster.GetAutoAttackDamage(target, true) / target.Health) * 100;
                 var death = caster.GetAutoAttackDamage(target, true) >= target.Health || aaprecent >= target.HealthPercent;
 
-                if ((death || aaprecent > 30) && target.IsValidTarget(spell.Range))
+                if ((death || aaprecent >= 10) && target.IsValidTarget(spell.Range))
                 {
                     Casting(spell, target);
                 }

@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
 
+    using AramBuddy.AutoShop;
     using AramBuddy.MainCore;
     using AramBuddy.MainCore.Logics;
     using AramBuddy.MainCore.Utility;
@@ -37,14 +38,15 @@
 
         private static void Loading_OnLoadingComplete(EventArgs args)
         {
-            /*
             if (Game.MapId != GameMapId.HowlingAbyss)
             {
                 Console.WriteLine(Game.MapId + " Is Not Supported By AramBuddy !");
                 Chat.Print(Game.MapId + " Is Not Supported By AramBuddy !");
                 return;
             }
-            */
+
+            // Initialize the AutoShop.
+            AutoShop.Setup.Init();
 
             Timer = Game.Time;
             Game.OnTick += Game_OnTick;
@@ -64,10 +66,7 @@
             MenuIni.Add("DisableSpells", new CheckBox("Disable Built-in Casting Logic", false));
             MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 0, 2500));
             MenuIni.AddLabel("More Value = more defensive playstyle");
-
-            // Initialize the AutoShop.
-            AutoShop.Setup.Init();
-
+            
             // Initialize Bot Functions.
             Brain.Init();
 
@@ -118,7 +117,7 @@
         {
             if (!Loaded)
             {
-                if (Game.Time - Timer >= 5)
+                if (Game.Time - Timer >= 10)
                 {
                     Loaded = true;
                     

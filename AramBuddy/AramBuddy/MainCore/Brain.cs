@@ -49,6 +49,8 @@
             GameObject.OnDelete += ObjectsManager.GameObject_OnDelete;
             Gapcloser.OnGapcloser += SpellsCasting.GapcloserOnOnGapcloser;
             Interrupter.OnInterruptableSpell += SpellsCasting.Interrupter_OnInterruptableSpell;
+            Obj_AI_Base.OnBasicAttack += SpellsCasting.Obj_AI_Base_OnBasicAttack;
+            Obj_AI_Base.OnProcessSpellCast += SpellsCasting.Obj_AI_Base_OnProcessSpellCast;
         }
 
         /// <summary>

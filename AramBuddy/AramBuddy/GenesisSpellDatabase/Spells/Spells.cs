@@ -700,6 +700,9 @@ namespace GenesisSpellLibrary.Spells
             this.W = new Spell.Active(SpellSlot.W);
             this.E = new Spell.Active(SpellSlot.E, 300);
             this.R = new Spell.Targeted(SpellSlot.R, 400);
+            this.QisCC = true;
+            this.WisSaver = true;
+
         }
     }
 

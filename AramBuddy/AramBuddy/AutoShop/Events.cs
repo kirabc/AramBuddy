@@ -90,17 +90,13 @@ namespace AramBuddy.AutoShop
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
-                                  "AramBuddy Error] Exception occurred on initialization of AutoShop event OnBuyAllow." +
-                                  Environment.NewLine);
-                Console.ResetColor();
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Error] Exception occurred on initialization of AutoShop event OnBuyAllow." + Environment.NewLine);
                 Console.Write(ex);
+                Console.ResetColor();
 
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine(
-                    DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") +
-                    "AramBuddy Warning] Exception occurred during AutoShop events initialization. AutoShop will most likely NOT work properly!");
+                Console.WriteLine(DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") + "AramBuddy Warning] Exception occurred during AutoShop events initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
 
@@ -130,18 +126,13 @@ namespace AramBuddy.AutoShop
             {
                 // Exception has been cought; Notify the user of the error and print the exception to the console
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(
-                    DateTime.Now.ToString("[H:mm:ss - ") +
-                    "AramBuddy Error] Exception occurred on initialization of AutoShop event OnBuildReset:" +
-                    Environment.NewLine);
-                Console.ResetColor();
+                Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Error] Exception occurred on initialization of AutoShop event OnBuildReset:" + Environment.NewLine);
                 Console.Write(ex);
+                Console.ResetColor();
 
                 // Warn the user that AutoShop may not be functioning correctly
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine(
-                    DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") +
-                    "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
+                Console.WriteLine(DateTime.Now.ToString(Environment.NewLine + "[H:mm:ss - ") + "AramBuddy Warning] Exception occurred during AutoShop initialization. AutoShop will most likely NOT work properly!");
                 Console.ResetColor();
             }
 
@@ -149,8 +140,7 @@ namespace AramBuddy.AutoShop
 
             // Notify the user that events are functioning correctly
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") +
-                              "AramBuddy Info] Events have been succesfully set up!");
+            Console.WriteLine(DateTime.Now.ToString("[H:mm:ss - ") + "AramBuddy Info] Events have been succesfully set up!");
             Console.ResetColor();
         }
 
