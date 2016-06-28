@@ -68,13 +68,13 @@
 
              if (MEELE.Contains(ChampionName))
             {
-                MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 0, 0, 2500));
+                MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 0, 0, 0));
                 MenuIni.AddLabel("More Value = more defensive playstyle");
             }
 
             if (RANGED.Contains(ChampionName))
             {
-                MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 1240, 1260));
+                MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 1250, 1250));
                 MenuIni.AddLabel("More Value = more defensive playstyle");
             }
             
@@ -159,11 +159,14 @@
             
             public static readonly string[] RANGED =
             {
+                "Ashe", "Caitlyn", "Corki", "Draven", "Ezreal", "Jhin", "Jinx", "Kalista", "Kindred", "KogMaw", 
+                "Lucian", "MissFortune", "Sivir", "Quinn", "Tristana", "Twitch", "Urgot", "Varus", "Vayne", 
                 "Ahri", "Anivia", "Annie", "AurelioSol", "Azir", "Brand", "Cassiopeia", "Diana", "Elise", 
                 "Fiddlesticks", "Fizz", "Galio", "Gragas", "Heimerdinger", "Janna", "Karma", "Karthus", 
                 "Kassadin", "Kayle", "LeBlanc", "Lissandra", "Lulu", "Lux", "Malzahar", "Morgana", "Nami", 
                 "Nidalee", "Ryze", "Orianna", "Sona", "Soraka", "Swain", "Syndra", "Taliyah", "Teemo", 
-                "TwistedFate", "Veigar", "Viktor", "VelKoz", "Xerath", "Ziggs", "Zilean", "Zyra"
+                "TwistedFate", "Veigar", "Viktor", "VelKoz", "Xerath", "Ziggs", "Zilean", "Zyra", "Akali", 
+                "Katarina", "Kennen", "Mordekaiser", "Rumble", "Vladimir"
             };
     }
 }
