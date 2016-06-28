@@ -66,27 +66,7 @@
             MenuIni.Add("DisableSpells", new CheckBox("Disable Built-in Casting Logic", false));
             var ChampionName = Player.Instance.ChampionName;
 
-             public static readonly string[] MEELE =
-            {
-                "Alistar", "Amumu", "Blitzcrank", "Bard", "Braum", "ChoGath", "DrMundo", "Garen", "Gnar", "Hecarim", 
-                "Illaoi", "Irelia", "JarvanIV", "Leona", "Malphite", "Maokai", "Nasus", "Nautilus", "Nunu", "Poppy", 
-                "Rammus", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Skarner", "TahmKench", "Taric", 
-                "Thresh", "Trundle", "Udyr", "Vi", "Volibear", "Warwick", "Yorick", "Zac", "Ekko", "Evelynn", "Aatrox",
-                "Darius", "Fiora", "Gangplank", "Jax", "Jayce", "KhaZix", "LeeSin", "MasterYi", "Nocturne", "Olaf", 
-                "Pantheon", "RekSai", "Renekton", "Rengar", "Riven", "Talon", "Tryndamere", "Wukong", "XinZhao", "Yasuo",
-                "Zed"
-            };
-            
-            public static readonly string[] RANGED =
-            {
-                "Ahri", "Anivia", "Annie", "AurelioSol", "Azir", "Brand", "Cassiopeia", "Diana", "Elise", 
-                "Fiddlesticks", "Fizz", "Galio", "Gragas", "Heimerdinger", "Janna", "Karma", "Karthus", 
-                "Kassadin", "Kayle", "LeBlanc", "Lissandra", "Lulu", "Lux", "Malzahar", "Morgana", "Nami", 
-                "Nidalee", "Ryze", "Orianna", "Sona", "Soraka", "Swain", "Syndra", "Taliyah", "Teemo", 
-                "TwistedFate", "Veigar", "Viktor", "VelKoz", "Xerath", "Ziggs", "Zilean", "Zyra"
-            };
-            
-            if (MEELE.Contains(ChampionName))
+             if (MEELE.Contains(ChampionName))
             {
                 MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 0, 2500));
                 MenuIni.AddLabel("More Value = more defensive playstyle");
@@ -164,6 +144,26 @@
                 }
                 Brain.Decisions();
             }
-        }
+       }
+    
+        public static readonly string[] MEELE =
+            {
+                "Alistar", "Amumu", "Blitzcrank", "Bard", "Braum", "ChoGath", "DrMundo", "Garen", "Gnar", "Hecarim", 
+                "Illaoi", "Irelia", "JarvanIV", "Leona", "Malphite", "Maokai", "Nasus", "Nautilus", "Nunu", "Poppy", 
+                "Rammus", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Skarner", "TahmKench", "Taric", 
+                "Thresh", "Trundle", "Udyr", "Vi", "Volibear", "Warwick", "Yorick", "Zac", "Ekko", "Evelynn", "Aatrox",
+                "Darius", "Fiora", "Gangplank", "Jax", "Jayce", "KhaZix", "LeeSin", "MasterYi", "Nocturne", "Olaf", 
+                "Pantheon", "RekSai", "Renekton", "Rengar", "Riven", "Talon", "Tryndamere", "Wukong", "XinZhao", "Yasuo",
+                "Zed"
+            };
+            
+            public static readonly string[] RANGED =
+            {
+                "Ahri", "Anivia", "Annie", "AurelioSol", "Azir", "Brand", "Cassiopeia", "Diana", "Elise", 
+                "Fiddlesticks", "Fizz", "Galio", "Gragas", "Heimerdinger", "Janna", "Karma", "Karthus", 
+                "Kassadin", "Kayle", "LeBlanc", "Lissandra", "Lulu", "Lux", "Malzahar", "Morgana", "Nami", 
+                "Nidalee", "Ryze", "Orianna", "Sona", "Soraka", "Swain", "Syndra", "Taliyah", "Teemo", 
+                "TwistedFate", "Veigar", "Viktor", "VelKoz", "Xerath", "Ziggs", "Zilean", "Zyra"
+            };
     }
 }
