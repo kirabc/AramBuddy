@@ -74,7 +74,7 @@
 
             if (RANGED.Contains(ChampionName))
             {
-                MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 0, 2500));
+                MenuIni.Add("Safe", new Slider("Safe Slider (Recommended 1250)", 1250, 1240, 1260));
                 MenuIni.AddLabel("More Value = more defensive playstyle");
             }
             
