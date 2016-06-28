@@ -144,8 +144,8 @@ namespace AramBuddy.AutoShop
         /// </summary>
         public static readonly string[] ManaAP =
             {
-                "Ahri", "Anivia", "Annie", "AurelioSol", "Azir", "Brand", "Cassiopeia", "Diana", "Elise", "Ekko", 
-                "Evelynn", "Fiddlesticks", "Fizz", "Galio", "Gragas", "Heimerdinger", "Janna", "Karma", "Karthus", 
+                "Ahri", "Anivia", "Annie", "AurelioSol", "Azir", "Brand", "Cassiopeia", "Diana", "Elise", 
+                "Fiddlesticks", "Fizz", "Galio", "Gragas", "Heimerdinger", "Janna", "Karma", "Karthus", 
                 "Kassadin", "Kayle", "LeBlanc", "Lissandra", "Lulu", "Lux", "Malzahar", "Morgana", "Nami", 
                 "Nidalee", "Ryze", "Orianna", "Sona", "Soraka", "Swain", "Syndra", "Taliyah", "Teemo", 
                 "TwistedFate", "Veigar", "Viktor", "VelKoz", "Xerath", "Ziggs", "Zilean", "Zyra"
@@ -161,9 +161,7 @@ namespace AramBuddy.AutoShop
         /// </summary>
         public static readonly string[] AD =
             {
-                "Aatrox", "Darius", "Fiora", "Gangplank", "Jax", "Jayce", "KhaZix", "LeeSin", "MasterYi", "Nocturne", 
-                "Olaf", "Pantheon", "RekSai", "Renekton", "Rengar", "Riven", "Talon", "Tryndamere", "Wukong", 
-                "XinZhao", "Yasuo", "Zed"
+                 "Vaca"
             };
 
         /// <summary>
@@ -174,7 +172,10 @@ namespace AramBuddy.AutoShop
                 "Alistar", "Amumu", "Blitzcrank", "Bard", "Braum", "ChoGath", "DrMundo", "Garen", "Gnar", "Hecarim", 
                 "Illaoi", "Irelia", "JarvanIV", "Leona", "Malphite", "Maokai", "Nasus", "Nautilus", "Nunu", "Poppy", 
                 "Rammus", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Skarner", "TahmKench", "Taric", 
-                "Thresh", "Trundle", "Udyr", "Vi", "Volibear", "Warwick", "Yorick", "Zac"
+                "Thresh", "Trundle", "Udyr", "Vi", "Volibear", "Warwick", "Yorick", "Zac", "Ekko", "Evelynn", "Aatrox",
+                "Darius", "Fiora", "Gangplank", "Jax", "Jayce", "KhaZix", "LeeSin", "MasterYi", "Nocturne", "Olaf", 
+                "Pantheon", "RekSai", "Renekton", "Rengar", "Riven", "Talon", "Tryndamere", "Wukong", "XinZhao", "Yasuo",
+                "Zed"
             };
     }
 }
